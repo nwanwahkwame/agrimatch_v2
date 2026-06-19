@@ -13,6 +13,17 @@ across 44 markets, 16 crops, and 13 regions, spanning 2006-2023.
 
 ---
 
+## Collaborators
+
+1. Ena Ayimey [GitHub](https://github.com/Ena753 "Ena's repo")
+2. Kwame Boadi Nwanwah [GitHub](https://github.com/nwanwahkwame "Kwame's repo")
+3. Olivia Matey [GitHub](https://github.com/mateyolivia-maker "Livy's repo")
+4. Robert Ewonam Agbo [GitHub](https://github.com/Ing-RAKE "Ing_Rake's repo")
+5. Rebecca Eshun [GitHub](https://github.com/Eshun-Rebecca "Becks' repo")
+6. Bright Adu-Boahen [GitHub](https://github.com/NehlTech/agrimatch "Bright's repo")
+
+---
+
 ## Setup
 
 ### 1. Prerequisites
