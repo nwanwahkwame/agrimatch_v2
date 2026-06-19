@@ -1,0 +1,1 @@
+{"lookback": 24, "forecast": 3, "n_features": 15, "target_idx": 0, "tier1_crops": ["maize", "rice", "cassava", "yam", "sorghum", "millet", "plantain"], "model_type": "lstm_encoder_decoder", "training_data": "2019-2023"}

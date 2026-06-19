@@ -1,0 +1,16 @@
+CROP_SEASONS: dict[str, dict] = {
+    "maize":      {"days": 90,  "peak_months": [7, 8, 9],    "label": "Maize"},
+    "tomato":     {"days": 75,  "peak_months": [11, 12, 1],  "label": "Tomato"},
+    "cassava":    {"days": 270, "peak_months": [4, 5, 6],    "label": "Cassava"},
+    "onion":      {"days": 90,  "peak_months": [2, 3],       "label": "Onion"},
+    "rice":       {"days": 120, "peak_months": [8, 9, 10],   "label": "Rice"},
+    "plantain":   {"days": 240, "peak_months": [6, 7, 8],    "label": "Plantain"},
+    "yam":        {"days": 210, "peak_months": [9, 10, 11],  "label": "Yam"},
+    "cowpea":     {"days": 70,  "peak_months": [7, 8],       "label": "Cowpea"},
+    "groundnut":  {"days": 100, "peak_months": [10, 11],     "label": "Groundnut"},
+    "sorghum":    {"days": 110, "peak_months": [9, 10],      "label": "Sorghum"},
+    "soybean":    {"days": 100, "peak_months": [10, 11],     "label": "Soybean"},
+    "millet":     {"days": 90,  "peak_months": [9, 10],      "label": "Millet"},
+    "pepper":     {"days": 80,  "peak_months": [12, 1, 2],   "label": "Pepper"},
+    "garden_egg": {"days": 75,  "peak_months": [11, 12, 1],  "label": "Garden Egg"},
+}

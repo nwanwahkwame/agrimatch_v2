@@ -1,0 +1,35 @@
+# Web framework
+fastapi
+uvicorn[standard]
+python-multipart
+slowapi
+
+# Database
+sqlalchemy
+psycopg2-binary
+alembic
+
+# Scheduling
+apscheduler
+
+# Data & ML
+pandas
+numpy
+joblib
+scikit-learn
+xgboost
+tensorflow-cpu
+
+# Geospatial (used by CHIRPS ingestion and district setup)
+geopandas
+shapely
+pyproj
+fiona
+
+# HTTP & ingestion
+requests
+openpyxl
+pandera
+python-dotenv
+pydantic-settings
+

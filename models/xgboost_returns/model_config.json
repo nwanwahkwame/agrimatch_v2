@@ -1,0 +1,1 @@
+{"model_type": "xgboost_returns", "target": "price_return", "prediction_method": "prev_price * (1 + return)"}

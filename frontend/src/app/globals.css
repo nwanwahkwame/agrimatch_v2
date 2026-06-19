@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* AgriMatch green palette */
+  --color-ag-green-900: #0D3D20;
+  --color-ag-green-800: #145228;
+  --color-ag-green-700: #1D6B3A;
+  --color-ag-green-600: #25864A;
+  --color-ag-green-500: #2EA05A;
+  --color-ag-green-400: #4DB876;
+  --color-ag-green-300: #7DCFA0;
+  --color-ag-green-200: #B8E8CC;
+  --color-ag-green-100: #E8F5EE;
+  --color-ag-green-50:  #F4FAF6;
+
+  /* AgriMatch gold palette */
+  --color-ag-gold-700: #92400E;
+  --color-ag-gold-500: #B45309;
+  --color-ag-gold-400: #D97706;
+  --color-ag-gold-300: #F59E0B;
+  --color-ag-gold-100: #FFF8E7;
+
+  /* AgriMatch neutral palette */
+  --color-ag-neutral-900: #0F1613;
+  --color-ag-neutral-800: #1A2620;
+  --color-ag-neutral-700: #2D3F38;
+  --color-ag-neutral-600: #445E54;
+  --color-ag-neutral-400: #7A9088;
+  --color-ag-neutral-200: #C8D8D2;
+  --color-ag-neutral-100: #EEF4F1;
+  --color-ag-neutral-50:  #F7FAF8;
+
+  /* Short aliases used in components */
+  --color-ag-green:       #1D6B3A;
+  --color-ag-green-light: #E8F5EE;
+  --color-ag-green-dark:  #145228;
+  --color-ag-gold:        #B45309;
+  --color-ag-gold-light:  #FFF8E7;
+
+  /* Typography */
+  --font-display: Georgia, serif;
+  --font-body:    system-ui, sans-serif;
+}
+
+:root {
+  --background: #F7FAF8;
+  --foreground: #0F1613;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Hero slideshow — Ken Burns zoom applied to every slide image */
+@keyframes heroKenBurns {
+  from { transform: scale(1.0); }
+  to   { transform: scale(1.12); }
+}
+.hero-slide {
+  animation: heroKenBurns 14s ease-in-out infinite alternate;
+}
+
+/* Fade-in animation for slide text */
+@keyframes heroTextIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero-text-in {
+  animation: heroTextIn 0.8s ease-out both;
+}

@@ -1,0 +1,25 @@
+[build]
+builder = "nixpacks"
+
+[deploy]
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 3
+
+# --- worker service ---
+# In your Railway project, create a second service from the same GitHub repo.
+# Set its start command to:
+#   python -m ingestion.scheduler
+# Give it the same environment variables as the web service (DATABASE_URL, etc.).
+# The worker runs the BlockingScheduler that handles:
+#   - HDX price ingestion        (daily  07:00 UTC)
+#   - MoFA Excel ingestion       (weekly Monday 06:00 UTC)
+#   - CHIRPS rainfall update     (daily  05:00 UTC)
+#   - NASA POWER weather update  (daily  05:30 UTC)
+#   - Climate indicators         (daily  06:00 UTC)
+#   - Fuel price scrape          (weekly Monday 06:30 UTC)
+#   - SPI baseline refresh       (weekly Sunday 04:00 UTC)
+#   - CSI declaration update     (daily  07:00 UTC)
+#   - Cooperative logistics      (daily  22:00 UTC)
+#   - SMS alerts                 (daily  08:00 UTC)
+#   - XGBoost model retrain      (weekly Sunday 10:00 UTC)
+

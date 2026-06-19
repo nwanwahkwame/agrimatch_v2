@@ -1,0 +1,2 @@
+model,accuracy,f1_macro,features_used,note
+harvest_delay_classifier,0.9950159130487,0.9902990944472951,raw_climate_only,target derived from same features — retrain on actual harvest data when available

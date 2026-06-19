@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AgriMatch — Project Defense Documentation</title>
+<style>
+  /* ── Print & screen base ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  @page { size: A4; margin: 22mm 18mm 22mm 22mm; }
+
+  body {
+    font-family: 'Georgia', serif;
+    font-size: 11pt;
+    line-height: 1.75;
+    color: #1a1a1a;
+    background: #fff;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 32px 24px;
+  }
+
+  /* ── Cover page ── */
+  .cover {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 40px;
+    border: 3px double #1D6B3A;
+    page-break-after: always;
+  }
+  .cover-logo { font-size: 52pt; color: #1D6B3A; margin-bottom: 8px; }
+  .cover h1 { font-size: 26pt; color: #1D6B3A; margin-bottom: 6px; letter-spacing: -0.5px; }
+  .cover h2 { font-size: 14pt; color: #444; font-weight: normal; margin-bottom: 32px; }
+  .cover-line { width: 80px; height: 3px; background: #22C55E; margin: 18px auto; }
+  .cover-sub { font-size: 10pt; color: #555; line-height: 2; }
+  .cover-footer { margin-top: 48px; font-size: 9pt; color: #888; }
+
+  /* ── TOC ── */
+  .toc { page-break-after: always; }
+  .toc h2 { font-size: 16pt; color: #1D6B3A; border-bottom: 2px solid #1D6B3A; padding-bottom: 6px; margin-bottom: 20px; }
+  .toc ol { padding-left: 24px; }
+  .toc li { margin-bottom: 6px; font-size: 10.5pt; }
+  .toc a { color: #1D6B3A; text-decoration: none; }
+  .toc .toc-chapter { font-weight: bold; font-size: 11pt; }
+  .toc .toc-section { padding-left: 16px; color: #444; }
+
+  /* ── Chapter headings ── */
+  .chapter-title {
+    page-break-before: always;
+    background: linear-gradient(135deg, #0D3D20, #1D6B3A);
+    color: #fff;
+    padding: 28px 32px;
+    border-radius: 4px;
+    margin-bottom: 28px;
+  }
+  .chapter-title .ch-num { font-size: 10pt; opacity: 0.75; letter-spacing: 2px; text-transform: uppercase; }
+  .chapter-title h2 { font-size: 20pt; margin-top: 4px; }
+
+  h3 { font-size: 13.5pt; color: #1D6B3A; margin-top: 28px; margin-bottom: 10px; border-left: 4px solid #22C55E; padding-left: 10px; }
+  h4 { font-size: 11.5pt; color: #145228; margin-top: 18px; margin-bottom: 6px; }
+  h5 { font-size: 10.5pt; color: #333; margin-top: 12px; margin-bottom: 4px; font-style: italic; }
+
+  p { margin-bottom: 10px; text-align: justify; }
+  ul, ol { margin: 8px 0 12px 24px; }
+  li { margin-bottom: 5px; }
+
+  /* ── Tables ── */
+  table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 9.5pt; }
+  th { background: #1D6B3A; color: #fff; padding: 8px 10px; text-align: left; font-weight: bold; }
+  td { padding: 7px 10px; border-bottom: 1px solid #ddd; vertical-align: top; }
+  tr:nth-child(even) td { background: #f4f9f5; }
+  tr:hover td { background: #e8f5ee; }
+
+  /* ── Code blocks ── */
+  pre {
+    background: #1a1a2e;
+    color: #e2e8f0;
+    padding: 16px;
+    border-radius: 6px;
+    font-size: 8.5pt;
+    font-family: 'Courier New', monospace;
+    overflow-x: auto;
+    margin: 12px 0;
+    line-height: 1.6;
+    border-left: 4px solid #22C55E;
+  }
+  code {
+    background: #e8f5ee;
+    color: #145228;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    font-size: 9pt;
+  }
+  pre code { background: none; color: inherit; padding: 0; }
+
+  /* ── Callout boxes ── */
+  .box { border-radius: 6px; padding: 14px 18px; margin: 14px 0; }
+  .box-green { background: #f0fdf4; border-left: 5px solid #22C55E; }
+  .box-blue  { background: #eff6ff; border-left: 5px solid #3b82f6; }
+  .box-amber { background: #fffbeb; border-left: 5px solid #f59e0b; }
+  .box-red   { background: #fef2f2; border-left: 5px solid #ef4444; }
+  .box-gray  { background: #f8fafc; border-left: 5px solid #94a3b8; }
+  .box strong { display: block; margin-bottom: 4px; font-size: 10pt; }
+
+  /* ── Formula styling ── */
+  .formula {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 4px;
+    padding: 12px 18px;
+    font-family: 'Courier New', monospace;
+    font-size: 10pt;
+    text-align: center;
+    margin: 14px 0;
+    color: #14532d;
+  }
+
+  /* ── Score bar visual ── */
+  .score-bar { display: flex; align-items: center; gap: 10px; margin: 5px 0; }
+  .score-label { width: 130px; font-size: 9pt; color: #444; flex-shrink: 0; }
+  .score-track { flex: 1; height: 14px; background: #e5e7eb; border-radius: 7px; overflow: hidden; }
+  .score-fill { height: 100%; border-radius: 7px; background: #22C55E; }
+  .score-pct { width: 36px; text-align: right; font-size: 9pt; font-weight: bold; color: #1D6B3A; }
+
+  /* ── Page badge ── */
+  .page-badge {
+    display: inline-block;
+    background: #1D6B3A;
+    color: #fff;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 8.5pt;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    margin-right: 6px;
+  }
+
+  /* ── Data flow diagram (text-based) ── */
+  .flow {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 14px 0;
+  }
+  .flow-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .flow-num {
+    width: 26px; height: 26px;
+    background: #1D6B3A; color: #fff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9pt; font-weight: bold; flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .flow-arrow { color: #22C55E; font-size: 16pt; text-align: center; padding: 2px 0 2px 10px; }
+  .flow-body { flex: 1; }
+  .flow-body strong { color: #1D6B3A; }
+
+  /* ── Metric grid ── */
+  .metric-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 14px 0; }
+  .metric-card {
+    background: #f0fdf4; border: 1px solid #bbf7d0;
+    border-radius: 6px; padding: 14px;
+    text-align: center;
+  }
+  .metric-num { font-size: 22pt; font-weight: bold; color: #1D6B3A; line-height: 1.2; }
+  .metric-lbl { font-size: 8.5pt; color: #555; margin-top: 3px; }
+
+  /* ── Print helpers ── */
+  @media print {
+    body { padding: 0; max-width: none; }
+    .chapter-title { page-break-before: always; }
+    pre { page-break-inside: avoid; }
+    table { page-break-inside: avoid; }
+    .no-break { page-break-inside: avoid; }
+  }
+
+  .divider { border: none; border-top: 1px solid #d1fae5; margin: 22px 0; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════ COVER -->
+<div class="cover">
+  <div class="cover-logo">🌿</div>
+  <h1>AgriMatch</h1>
+  <h2>Ghana's Agricultural Intelligence Marketplace</h2>
+  <div class="cover-line"></div>
+  <p style="font-size:13pt; font-weight:bold; color:#1D6B3A;">Project Defense Documentation</p>
+  <br/>
+  <div class="cover-sub">
+    <p><strong>Subject:</strong> Data Science Capstone Project</p>
+    <p><strong>Domain:</strong> Agricultural Economics &amp; Predictive Analytics</p>
+    <p><strong>Country:</strong> Ghana, West Africa</p>
+    <p><strong>Data Sources:</strong> HDX, MoFA, NASA POWER, CHIRPS</p>
+    <p><strong>Models Used:</strong> XGBoost, LSTM, ARIMA/SARIMA, Harvest Delay Classifier, Crop Recommender</p>
+  </div>
+  <div class="cover-footer">
+    This document presents the full data science methodology, implementation details,<br/>
+    and page-by-page explanation of the AgriMatch platform for academic defense purposes.
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ TOC -->
+<div class="toc">
+  <h2>Table of Contents</h2>
+  <ol>
+    <li class="toc-chapter"><a href="#ch1">Chapter 1 — Project Overview &amp; Problem Statement</a></li>
+    <li class="toc-section"><a href="#ch1-1">1.1 What is AgriMatch?</a></li>
+    <li class="toc-section"><a href="#ch1-2">1.2 Problem Statement</a></li>
+    <li class="toc-section"><a href="#ch1-3">1.3 Objectives</a></li>
+    <li class="toc-section"><a href="#ch1-4">1.4 Target Users</a></li>
+
+    <li class="toc-chapter" style="margin-top:10px"><a href="#ch2">Chapter 2 — Data Sources &amp; Collection</a></li>
+    <li class="toc-section"><a href="#ch2-1">2.1 HDX Ghana Food Price Data</a></li>
+    <li class="toc-section"><a href="#ch2-2">2.2 MoFA Price Data</a></li>
+    <li class="toc-section"><a href="#ch2-3">2.3 CHIRPS Rainfall Data</a></li>
+    <li class="toc-section"><a href="#ch2-4">2.4 NASA POWER Weather Data</a></li>
+    <li class="toc-section"><a href="#ch2-5">2.5 Farmer Data (xlsx)</a></li>
+
+    <li class="toc-chapter" style="margin-top:10px"><a href="#ch3">Chapter 3 — Exploratory Data Analysis (EDA)</a></li>
+    <li class="toc-section"><a href="#ch3-1">3.1 Price Distribution Analysis</a></li>
+    <li class="toc-section"><a href="#ch3-2">3.2 Seasonal Price Patterns</a></li>
+    <li class="toc-section"><a href="#ch3-3">3.3 Market Coverage</a></li>
+    <li class="toc-section"><a href="#ch3-4">3.4 Missing Value Analysis</a></li>
+    <li class="toc-section"><a href="#ch3-5">3.5 Outlier Detection</a></li>
+    <li class="toc-section"><a href="#ch3-6">3.6 Correlation Analysis</a></li>
+
+    <li class="toc-chapter" style="margin-top:10px"><a href="#ch4">Chapter 4 — Data Cleaning Pipeline</a></li>
+    <li class="toc-section"><a href="#ch4-1">4.1 Pipeline Architecture</a></li>
+    <li class="toc-section"><a href="#ch4-2">4.2 Validation Rules</a></li>
+    <li class="toc-section"><a href="#ch4-3">4.3 Transformation</a></li>
+    <li class="toc-section"><a href="#ch4-4">4.4 Quarantine Mechanism</a></li>
+
+    <li class="toc-chapter" style="margin-top:10px"><a href="#ch5">Chapter 5 — Feature Engineering</a></li>
+    <li class="toc-section"><a href="#ch5-1">5.1 Lag Features</a></li>
+    <li class="toc-section"><a href="#ch5-2">5.2 Rolling Statistics</a></li>
+    <li class="toc-section"><a href="#ch5-3">5.3 Price Momentum</a></li>
+    <li class="toc-section"><a href="#ch5-4">5.4 Climate Features</a></li>
+    <li class="toc-section"><a href="#ch5-5">5.5 The Feature Store</a></li>
+
+    <li class="toc-chapter" style="margin-top:10px"><a href="#ch6">Chapter 6 — Machine Learning Models</a></li>
+    <li class="toc-section"><a href="#ch6-1">6.1 XGBoost Price Forecaster</a></li>
+    <li class="toc-section"><a href="#ch6-2">6.2 LSTM Price Forecaster</a></li>
+    <li class="toc-section"><a href="#ch6-3">6.3 ARIMA/SARIMA Baseline</a></li>
+    <li class="toc-section"><a href="#ch6-4">6.4 Harvest Delay Classifier</a></li>
+    <li class="toc-section"><a href="#ch6-5">6.5 Crop Recommender</a></li>
+    <li class="toc-section"><a href="#ch6-6">6.6 Matchmaking Engine</a></li>
+    <li class="toc-section"><a href="#ch6-7">6.7 Model Evaluation Metrics</a></li>
+
+    <li class="toc-chapter" style="margin-top:10px"><a href="#ch7">Chapter 7 — Climate Data Science</a></li>
+    <li class="toc-section"><a href="#ch7-1">7.1 SPI (Standardized Precipitation Index)</a></li>
+    <li class="toc-section"><a href="#ch7-2">7.2 ET0 (Evapotranspiration)</a></li>
+    <li class="toc-section"><a href="#ch7-3">7.3 CSI (Crop Stress Index)</a></li>
+    <li class="toc-section"><a href="#ch7-4">7.4 Harvest Delay Estimation</a></li>
+
+    <li class="toc-chapter" style="margin-top:10px"><a href="#ch8">Chapter 8 — Page-by-Page Explanation</a></li>
+    <li class="toc-section"><a href="#pg-home">8.1 Homepage (/)</a></li>
+    <li class="toc-section"><a href="#pg-shop">8.2 Marketplace (/shop)</a></li>
+    <li class="toc-section"><a href="#pg-detail">8.3 Product Detail (/shop/[id])</a></li>
+    <li class="toc-section"><a href="#pg-market">8.4 Market Bulletin (/market)</a></li>
+    <li class="toc-section"><a href="#pg-demand">8.5 Demand Board (/demand)</a></li>
+    <li class="toc-section"><a href="#pg-dashboard">8.6 Buyer Dashboard (/dashboard)</a></li>
+    <li class="toc-section"><a href="#pg-farmer">8.7 Farmer Store (/shop/farmers/[id])</a></li>
+    <li class="toc-section"><a href="#pg-seller">8.8 Seller Dashboard (/seller)</a></li>
+    <li class="toc-section"><a href="#pg-analytics">8.9 Seller Analytics (/seller/analytics)</a></li>
+    <li class="toc-section"><a href="#pg-planting">8.10 Planting Calendar (/seller/planting)</a></li>
+    <li class="toc-section"><a href="#pg-roi">8.11 ROI Calculator (/seller/roi)</a></li>
+    <li class="toc-section"><a href="#pg-byproducts">8.12 Byproducts Marketplace (/byproducts)</a></li>
+    <li class="toc-section"><a href="#pg-transport">8.13 Transport Registration (/transport)</a></li>
+    <li class="toc-section"><a href="#pg-admin">8.14 Admin Portal (/admin)</a></li>
+
+    <li class="toc-chapter" style="margin-top:10px"><a href="#ch9">Chapter 9 — System Architecture</a></li>
+    <li class="toc-chapter"><a href="#ch10">Chapter 10 — Defense Talking Points &amp; Q&amp;A Guide</a></li>
+  </ol>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ CH1 -->
+<div class="chapter-title" id="ch1">
+  <div class="ch-num">Chapter 1</div>
+  <h2>Project Overview &amp; Problem Statement</h2>
+</div>
+
+<h3 id="ch1-1">1.1 What is AgriMatch?</h3>
+<p>AgriMatch is a data-driven agricultural marketplace built specifically for Ghana. It connects smallholder farmers directly with buyers — removing the middlemen who historically capture most of the value in the supply chain. Beyond basic listing and buying, AgriMatch uses machine learning and climate science to:</p>
+<ul>
+  <li>Predict crop prices 30, 60, and 90 days into the future</li>
+  <li>Advise farmers on <em>when</em> to plant, harvest, and sell for maximum return</li>
+  <li>Assess climate risk (drought, excess rain) for every district in Ghana daily</li>
+  <li>Match buyers with the best-suited farmers using a multi-factor scoring algorithm</li>
+  <li>Organise shared transport runs to reduce logistics costs</li>
+  <li>Recommend which crops a farmer should plant next based on local supply gaps and price forecasts</li>
+</ul>
+
+<div class="box box-green">
+  <strong>Key Insight for Defense</strong>
+  AgriMatch is not just a website — it is a <strong>data pipeline + machine learning system + real-time dashboard</strong>. The website is the visible surface; the science runs underneath it every day automatically.
+</div>
+
+<h3 id="ch1-2">1.2 Problem Statement</h3>
+<p>Ghana's agricultural sector faces three interconnected problems that data science can address:</p>
+
+<table>
+  <tr><th>Problem</th><th>Root Cause</th><th>AgriMatch Solution</th></tr>
+  <tr><td>Farmers sell at wrong time</td><td>No access to price forecasts</td><td>XGBoost + LSTM 90-day price forecasts</td></tr>
+  <tr><td>Buyers cannot find local farmers</td><td>No structured marketplace</td><td>Matchmaking engine with 5-factor scoring</td></tr>
+  <tr><td>Post-harvest loss from late sales</td><td>No harvest timing advice</td><td>Harvest delay classifier + CSI alerts</td></tr>
+  <tr><td>High transport costs for small farms</td><td>Each farmer ships individually</td><td>Cooperative logistics grouping algorithm</td></tr>
+  <tr><td>Farmers plant the wrong crops</td><td>No supply/demand visibility</td><td>Crop recommender (climate + supply + price)</td></tr>
+  <tr><td>Price volatility risk</td><td>Weather shocks affect supply</td><td>SPI + CSI climate risk scoring</td></tr>
+</table>
+
+<h3 id="ch1-3">1.3 Objectives</h3>
+<ol>
+  <li>Build an automated price data ingestion pipeline from official government and humanitarian sources</li>
+  <li>Perform EDA to understand seasonal price patterns across Ghanaian markets</li>
+  <li>Engineer time-series features that capture price momentum, seasonality, and climate effects</li>
+  <li>Train XGBoost and LSTM models per crop-market pair for short-term price forecasting</li>
+  <li>Build a real-time climate risk index that updates daily from satellite data</li>
+  <li>Implement a multi-criteria matchmaking algorithm linking buyers to farmers</li>
+  <li>Deploy the full system as a production web application accessible via browser and USSD mobile</li>
+</ol>
+
+<h3 id="ch1-4">1.4 Target Users</h3>
+<table>
+  <tr><th>User Type</th><th>How They Use AgriMatch</th><th>Data Science Benefit</th></tr>
+  <tr><td>Smallholder Farmer</td><td>Declare harvest, get sell advice, join transport groups</td><td>Price forecast, CSI alert, planting calendar</td></tr>
+  <tr><td>Buyer / Trader</td><td>Browse listings, reserve with MoMo, see price trends</td><td>Market bulletin, buy-timing strategy, demand board</td></tr>
+  <tr><td>Transport Provider</td><td>Register vehicle, receive matched logistics jobs</td><td>Automated matching algorithm</td></tr>
+  <tr><td>Government / NGO</td><td>Monitor supply chains, view pipeline stats</td><td>Admin dashboard, model accuracy, market coverage</td></tr>
+</table>
+
+<!-- ══════════════════════════════════════════════════════════ CH2 -->
+<div class="chapter-title" id="ch2">
+  <div class="ch-num">Chapter 2</div>
+  <h2>Data Sources &amp; Collection</h2>
+</div>
+
+<p>AgriMatch ingests data from five distinct sources, each serving a different analytical purpose. This multi-source approach is a deliberate data science design choice: no single source covers all the variables needed for accurate price forecasting.</p>
+
+<h3 id="ch2-1">2.1 HDX Ghana Food Price Data</h3>
+<p>The Humanitarian Data Exchange (HDX) is maintained by the United Nations Office for the Coordination of Humanitarian Affairs (OCHA). For Ghana, it provides the most comprehensive historical record of commodity market prices.</p>
+
+<div class="box box-blue">
+  <strong>What this data contains</strong>
+  Market name, region, crop/commodity, price in GHS, unit of measure (kg, 100kg, bag), date of observation. Data goes back to 2007 for major markets like Kumasi, Accra, and Techiman.
+</div>
+
+<p><strong>How it is collected in the code:</strong></p>
+<pre><code># ingestion/hdx_client.py
+class HDXClient:
+    def run(self):
+        # 1. Download the latest CSV from HDX API
+        # 2. Parse each row into a raw_payload dict
+        # 3. Save every row to raw_prices table with status='pending'
+        # 4. Return the list of raw_ids for the pipeline to process
+        rows_fetched = len(raw_ids)
+        return {"rows_fetched": rows_fetched, "raw_ids": raw_ids}</code></pre>
+
+<p>The raw data is <strong>never transformed before saving</strong>. This is a critical data science principle: store the original data unchanged so you can always re-process it with improved cleaning logic.</p>
+
+<h3 id="ch2-2">2.2 MoFA Price Data</h3>
+<p>Ghana's Ministry of Food and Agriculture (MoFA) publishes weekly market survey data as Excel files. These files contain field-agent-collected prices from district markets that HDX may not cover.</p>
+
+<div class="box box-amber">
+  <strong>Why two sources instead of one?</strong>
+  HDX data covers major urban markets. MoFA covers rural district markets. Using both increases geographic coverage from ~15 markets to 44 markets across all regions of Ghana.
+</div>
+
+<p>The MoFA client detects the column layout dynamically because MoFA changes its Excel format periodically:</p>
+<pre><code># ingestion/transformers.py
+def detect_mofa_columns(df: pd.DataFrame) -> dict:
+    # Searches for columns matching known aliases
+    # e.g. "Market", "Mkt", "MARKET" all map to "market"
+    # This makes the pipeline robust to format changes
+    col_map = {}
+    for target, aliases in COLUMN_ALIASES.items():
+        for alias in aliases:
+            if alias.lower() in [c.lower() for c in df.columns]:
+                col_map[target] = alias
+                break
+    return col_map</code></pre>
+
+<h3 id="ch2-3">2.3 CHIRPS Rainfall Data</h3>
+<p>CHIRPS (Climate Hazards Group InfraRed Precipitation with Station data) is a satellite-derived daily rainfall dataset at 0.05° spatial resolution. AgriMatch queries it for every district centroid in Ghana.</p>
+
+<table>
+  <tr><th>Field</th><th>Description</th><th>Used For</th></tr>
+  <tr><td>mean_rainfall_mm</td><td>Daily district-level rainfall</td><td>SPI calculation (30-day rolling sum)</td></tr>
+  <tr><td>obs_date</td><td>Date of observation</td><td>Time-series window</td></tr>
+  <tr><td>district_id</td><td>Ghana district reference</td><td>Join to farmer districts</td></tr>
+</table>
+
+<p>CHIRPS is free, near-real-time (2-day lag), and provides 40+ years of historical data — making it ideal for computing the long-term rainfall baselines needed for the SPI formula (see Chapter 7).</p>
+
+<h3 id="ch2-4">2.4 NASA POWER Weather Data</h3>
+<p>NASA POWER (Prediction Of Worldwide Energy Resources) provides daily weather parameters derived from satellite observations. AgriMatch uses it specifically for <strong>evapotranspiration (ET0)</strong> — the amount of water plants lose to the atmosphere through transpiration.</p>
+
+<div class="box box-green">
+  <strong>Why ET0 matters for agriculture</strong>
+  ET0 is a proxy for plant water demand. When ET0 is high (hot, dry days) and rainfall is low, crops experience water stress — this is captured in the Crop Stress Index (CSI). A high CSI predicts harvest delays and yield reduction.
+</div>
+
+<h3 id="ch2-5">2.5 Farmer Data (Excel Import)</h3>
+<p>Real farmer data from Upper East and Greater Accra regions was imported from an Excel file (<code>Farmer_data.xlsx</code>). This file contains:</p>
+<ul>
+  <li>Farmer full name, phone number, district</li>
+  <li>Crop type, quantity in bags, expected harvest date</li>
+  <li>Farm location (district mapped to our reference table)</li>
+</ul>
+
+<div class="box box-red">
+  <strong>Data Privacy Note</strong>
+  This file contains real personal data (names, phone numbers) and is never committed to version control. It exists only on the local machine. The data is imported to the secure PostgreSQL database and all files containing personal data are listed in <code>.gitignore</code>.
+</div>
+
+<hr class="divider" />
+
+<div class="metric-grid">
+  <div class="metric-card">
+    <div class="metric-num">37,933</div>
+    <div class="metric-lbl">Clean price records in database</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-num">44</div>
+    <div class="metric-lbl">Markets across Ghana covered</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-num">16</div>
+    <div class="metric-lbl">Crop types tracked</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ CH3 -->
+<div class="chapter-title" id="ch3">
+  <div class="ch-num">Chapter 3</div>
+  <h2>Exploratory Data Analysis (EDA)</h2>
+</div>
+
+<p>EDA is the foundation of any data science project. Before building any model, we must understand the data's structure, quality, and patterns. For AgriMatch, EDA answered five critical questions.</p>
+
+<h3 id="ch3-1">3.1 Price Distribution Analysis</h3>
+<p>The first step was to understand the distribution of prices across crops. This revealed:</p>
+
+<table>
+  <tr><th>Finding</th><th>Implication for Modeling</th></tr>
+  <tr><td>Prices are right-skewed (long tail of high prices during scarcity)</td><td>Models trained on raw prices would overweight extreme values. We use log-returns instead.</td></tr>
+  <tr><td>Different crops have very different price scales (cassava ~0.5 GHS/kg vs tomato ~3 GHS/kg)</td><td>Models must be trained per crop — a single model across crops would be dominated by high-price crops.</td></tr>
+  <tr><td>Price variance is much higher in smaller rural markets than Kumasi/Accra</td><td>Predictions are more reliable for large markets. Confidence intervals are wider for small markets.</td></tr>
+</table>
+
+<p><strong>Code that performs distribution analysis during EDA:</strong></p>
+<pre><code># During initial EDA (Jupyter notebook equivalent run as setup script)
+import pandas as pd
+import numpy as np
+
+df = pd.read_sql("SELECT crop, market, price_ghs FROM clean_prices", engine)
+
+# Check skewness per crop
+for crop in df['crop'].unique():
+    subset = df[df['crop'] == crop]['price_ghs']
+    print(f"{crop}: mean={subset.mean():.2f}, "
+          f"median={subset.median():.2f}, "
+          f"skew={subset.skew():.2f}, "
+          f"IQR={subset.quantile(0.75)-subset.quantile(0.25):.2f}")</code></pre>
+
+<h3 id="ch3-2">3.2 Seasonal Price Patterns</h3>
+<p>Agricultural prices are fundamentally seasonal — they follow planting and harvest cycles. EDA revealed the following patterns for Ghana:</p>
+
+<table>
+  <tr><th>Crop</th><th>Price Peak (months)</th><th>Price Trough</th><th>Reason</th></tr>
+  <tr><td>Maize</td><td>July–August</td><td>October–November</td><td>Main harvest in Oct–Nov floods market</td></tr>
+  <tr><td>Tomato</td><td>November–January</td><td>June–August</td><td>Dry-season tomatoes are scarce and expensive</td></tr>
+  <tr><td>Onion</td><td>February–March</td><td>August–September</td><td>Northern onion harvest arrives Aug–Sep</td></tr>
+  <tr><td>Cassava</td><td>April–June</td><td>September–October</td><td>Year-round availability but demand peaks mid-year</td></tr>
+  <tr><td>Plantain</td><td>June–August</td><td>January–February</td><td>Peak fruiting follows rainy season</td></tr>
+</table>
+
+<div class="box box-green">
+  <strong>How this EDA finding drives the Planting Calendar page (/seller/planting)</strong>
+  The <code>next_peak_month</code> shown to each farmer is derived directly from this EDA finding. If the peak price for maize is August and it takes 90 days to grow, the optimal planting date is approximately May. The platform computes this automatically using the <code>_CROP_SEASONS</code> dictionary built from EDA findings.
+</div>
+
+<h3 id="ch3-3">3.3 Market Coverage Analysis</h3>
+<p>EDA showed that data quality varies significantly by market. We computed a "coverage score" for each market: the proportion of weeks (over the past 2 years) where at least one price record exists.</p>
+
+<table>
+  <tr><th>Coverage Level</th><th>Number of Markets</th><th>Treatment in Models</th></tr>
+  <tr><td>≥ 80% coverage (high quality)</td><td>12 markets</td><td>Full XGBoost + LSTM training</td></tr>
+  <tr><td>40–80% (medium quality)</td><td>18 markets</td><td>XGBoost only (LSTM needs longer sequences)</td></tr>
+  <tr><td>&lt; 40% (sparse)</td><td>14 markets</td><td>ARIMA/SARIMA only, or no model</td></tr>
+</table>
+
+<p>This is why some product detail pages show forecasts and others do not — it depends entirely on whether that market has enough data to train a reliable model.</p>
+
+<h3 id="ch3-4">3.4 Missing Value Analysis</h3>
+<p>Price data has inherent gaps: markets close on holidays, enumerators miss surveys, data is delayed. EDA quantified this:</p>
+
+<ul>
+  <li><strong>26% of expected weekly observations</strong> were missing across all markets</li>
+  <li>Missing values are <strong>not random</strong> — they cluster around holidays (Christmas, Eid, Independence Day) and rainy-season access problems</li>
+  <li>Imputing missing values with simple mean/forward-fill would distort the seasonal signal</li>
+</ul>
+
+<p><strong>Decision:</strong> We do NOT impute missing prices in the clean_prices table. Instead, the feature engineering step creates lag features that are robust to gaps — if lag_7d is missing, it uses the most recent available price within a 14-day window.</p>
+
+<h3 id="ch3-5">3.5 Outlier Detection</h3>
+<p>Price outliers can be genuine (scarcity event) or data entry errors (wrong unit, extra zero). The validation pipeline uses a two-stage approach:</p>
+
+<p><strong>Stage 1 — Hard limits per crop (applied during cleaning):</strong></p>
+<pre><code># ingestion/validators.py — simplified
+PRICE_BOUNDS = {
+    'maize':    (0.10, 5.00),   # GHS per kg
+    'tomato':   (0.30, 15.00),
+    'cassava':  (0.10, 3.00),
+    'onion':    (0.50, 8.00),
+    'rice':     (1.00, 12.00),
+}
+
+def validate_price(crop, price_ghs):
+    lo, hi = PRICE_BOUNDS.get(crop, (0.05, 50.0))
+    if not (lo <= price_ghs <= hi):
+        return False, f"Price {price_ghs} outside [{lo}, {hi}] for {crop}"
+    return True, None</code></pre>
+
+<p><strong>Stage 2 — Statistical outlier detection (applied during feature engineering):</strong></p>
+<p>For each crop-market pair, prices beyond 3 standard deviations from the rolling 90-day mean are flagged. These are NOT removed — they may represent genuine scarcity events — but they are given reduced weight in model training.</p>
+
+<h3 id="ch3-6">3.6 Correlation Analysis</h3>
+<p>A key EDA question was: <em>which variables are most correlated with future price changes?</em> This determines which features to include in our machine learning models.</p>
+
+<table>
+  <tr><th>Variable</th><th>Correlation with Next-Week Price</th><th>Interpretation</th></tr>
+  <tr><td>lag_7d (price 7 days ago)</td><td>0.87</td><td>Strong — prices are persistent week-to-week</td></tr>
+  <tr><td>lag_14d (price 14 days ago)</td><td>0.81</td><td>Still strong — biweekly memory</td></tr>
+  <tr><td>rolling_mean_30d</td><td>0.79</td><td>Trend level matters</td></tr>
+  <tr><td>SPI_30day (rainfall index)</td><td>-0.42</td><td>More rain → more supply → lower price</td></tr>
+  <tr><td>fuel_price_ghs</td><td>0.38</td><td>Diesel price affects transport costs</td></tr>
+  <tr><td>month (seasonal)</td><td>0.31</td><td>Seasonal cycle captures planting/harvest</td></tr>
+  <tr><td>ET0_mm (evapotranspiration)</td><td>-0.28</td><td>Heat stress reduces yield, raises prices</td></tr>
+</table>
+
+<div class="box box-blue">
+  <strong>This correlation analysis directly determined the feature set for XGBoost</strong>
+  Every variable in the table above with |correlation| &gt; 0.25 was included as a feature in the XGBoost model. This is standard feature selection practice in time-series forecasting.
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ CH4 -->
+<div class="chapter-title" id="ch4">
+  <div class="ch-num">Chapter 4</div>
+  <h2>Data Cleaning Pipeline</h2>
+</div>
+
+<p>The data cleaning pipeline is one of the most critical components of AgriMatch. Raw data from HDX and MoFA contains errors, inconsistencies, and missing fields. The pipeline converts raw observations into clean, analysis-ready records.</p>
+
+<h3 id="ch4-1">4.1 Pipeline Architecture</h3>
+
+<div class="flow">
+  <div class="flow-step">
+    <div class="flow-num">1</div>
+    <div class="flow-body"><strong>Fetch</strong> — HDXClient / MoFAClient downloads data and saves raw rows to <code>raw_prices</code> table. Every row is stored with status='pending'. Nothing is changed.</div>
+  </div>
+  <div class="flow-arrow">↓</div>
+  <div class="flow-step">
+    <div class="flow-num">2</div>
+    <div class="flow-body"><strong>Validate</strong> — Each raw row is checked against 8 validation rules (see below). Passing rows go to transformation. Failing rows go to <code>price_quarantine</code>.</div>
+  </div>
+  <div class="flow-arrow">↓</div>
+  <div class="flow-step">
+    <div class="flow-num">3</div>
+    <div class="flow-body"><strong>Transform</strong> — Validated rows are standardised: unit conversion (bags → kg), crop name normalisation, market name cleaning, price currency validation.</div>
+  </div>
+  <div class="flow-arrow">↓</div>
+  <div class="flow-step">
+    <div class="flow-num">4</div>
+    <div class="flow-body"><strong>Load</strong> — Clean rows are upserted into <code>clean_prices</code>. Duplicates (same crop, market, date) are handled with ON CONFLICT DO UPDATE. An ingestion log entry is created.</div>
+  </div>
+  <div class="flow-arrow">↓</div>
+  <div class="flow-step">
+    <div class="flow-num">5</div>
+    <div class="flow-body"><strong>Feature Engineering</strong> — Scheduled separately: the feature_store table is rebuilt from clean_prices with lag features, rolling stats, momentum, and climate data joined in.</div>
+  </div>
+</div>
+
+<h3 id="ch4-2">4.2 Validation Rules</h3>
+<p>The validator checks 8 rules. Any failure quarantines the row:</p>
+
+<table>
+  <tr><th>#</th><th>Rule</th><th>Example Rejection</th></tr>
+  <tr><td>1</td><td>Price must be a positive number</td><td>price = -2.5 or price = "N/A"</td></tr>
+  <tr><td>2</td><td>Price must be within crop-specific bounds</td><td>Maize at 45 GHS/kg (likely data entry error)</td></tr>
+  <tr><td>3</td><td>Date must be parseable and not in the future</td><td>date = "2099-01-01"</td></tr>
+  <tr><td>4</td><td>Market name must be recognisable (fuzzy match to reference list)</td><td>"Kmasi" → rejected (cannot match)</td></tr>
+  <tr><td>5</td><td>Crop name must be in the crop reference table</td><td>"tomatos" → normalised to "tomato" first; still unknown → rejected</td></tr>
+  <tr><td>6</td><td>Unit must be convertible to kg</td><td>Unit = "bunch" with no known conversion → rejected</td></tr>
+  <tr><td>7</td><td>Region must match the market's known region</td><td>Market="Kumasi" but region="Volta" → rejected</td></tr>
+  <tr><td>8</td><td>No exact duplicate (same crop, market, date, price)</td><td>Same row appearing twice in the same HDX export</td></tr>
+</table>
+
+<pre><code># ingestion/validators.py — core validation function (simplified)
+def validate_batch(rows: list[dict], source: str):
+    valid, rejected = [], []
+    for row in rows:
+        ok, reasons = True, []
+
+        # Rule 1: Price positive
+        price = float(row.get('price_ghs', 0) or 0)
+        if price <= 0:
+            ok = False; reasons.append("non-positive price")
+
+        # Rule 2: Price within bounds
+        crop = str(row.get('crop', '')).lower()
+        lo, hi = PRICE_BOUNDS.get(crop, (0.05, 100.0))
+        if not (lo <= price <= hi):
+            ok = False; reasons.append(f"price {price} outside bounds [{lo},{hi}]")
+
+        # ... (rules 3-8 similarly applied)
+
+        if ok:
+            valid.append(row)
+        else:
+            rejected.append({**row, 'rejection_reasons': reasons})
+
+    return valid, rejected</code></pre>
+
+<h3 id="ch4-3">4.3 Transformation</h3>
+<p>The most important transformation is <strong>unit standardisation</strong> — all prices must be converted to GHS per kg before entering the clean_prices table.</p>
+
+<table>
+  <tr><th>Original Unit</th><th>Conversion Factor</th><th>Result</th></tr>
+  <tr><td>1 bag (100 kg)</td><td>÷ 100</td><td>GHS/kg</td></tr>
+  <tr><td>50 kg sack</td><td>÷ 50</td><td>GHS/kg</td></tr>
+  <tr><td>1 tonne</td><td>÷ 1000</td><td>GHS/kg</td></tr>
+  <tr><td>1 kg (already)</td><td>× 1</td><td>GHS/kg</td></tr>
+</table>
+
+<p>Market names are also normalised: "Kumasi Central" and "Kumasi" and "Kumasi (Central)" are all mapped to the canonical name "Kumasi" using the <code>ghana_markets</code> reference table. This prevents the same market from appearing as multiple separate series in the model.</p>
+
+<h3 id="ch4-4">4.4 Quarantine Mechanism</h3>
+<p>Rejected rows are never deleted — they are stored in <code>price_quarantine</code> with the rejection reason. This serves two purposes:</p>
+<ol>
+  <li><strong>Audit trail</strong> — we can always see why data was rejected</li>
+  <li><strong>Model improvement</strong> — reviewing quarantine reveals patterns in data quality problems</li>
+</ol>
+
+<div class="box box-amber">
+  <strong>Key EDA finding from quarantine analysis</strong>
+  35% of MoFA rejections were due to unit="bags" with no conversion factor available for that crop. This finding led us to expand the unit conversion table for traditional measuring units used in northern Ghana markets.
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ CH5 -->
+<div class="chapter-title" id="ch5">
+  <div class="ch-num">Chapter 5</div>
+  <h2>Feature Engineering</h2>
+</div>
+
+<p>Feature engineering is the process of transforming raw data into inputs that machine learning models can learn from effectively. For time-series price forecasting, the features capture <em>how prices evolved in the past</em> and <em>what external conditions currently exist</em>.</p>
+
+<h3 id="ch5-1">5.1 Lag Features</h3>
+<p>Lag features are the most fundamental feature for any price forecasting model. They answer the question: <em>"What was the price X days ago?"</em></p>
+
+<div class="formula">
+lag_7d = price_ghs at (current_date - 7 days)<br/>
+lag_14d = price_ghs at (current_date - 14 days)<br/>
+lag_30d = price_ghs at (current_date - 30 days)<br/>
+lag_90d = price_ghs at (current_date - 90 days)
+</div>
+
+<p><strong>Why these specific lags?</strong> From EDA (Chapter 3.6), the strongest autocorrelations in Ghana price data are at 7, 14, and 30-day lags. The 90-day lag captures the same point in the seasonal cycle three months prior.</p>
+
+<pre><code>-- SQL used in setup/run_feature_engineering.py to create lag features
+SELECT
+    price_date,
+    market,
+    crop,
+    price_ghs,
+    -- Lag features using window functions
+    LAG(price_ghs, 7)  OVER w AS lag_7d,
+    LAG(price_ghs, 14) OVER w AS lag_14d,
+    LAG(price_ghs, 30) OVER w AS lag_30d,
+    LAG(price_ghs, 90) OVER w AS lag_90d
+FROM clean_prices
+WINDOW w AS (PARTITION BY market, crop ORDER BY price_date)</code></pre>
+
+<h3 id="ch5-2">5.2 Rolling Statistics</h3>
+<p>Rolling statistics capture the recent price trend, not just the individual past price:</p>
+
+<div class="formula">
+rolling_mean_30d = average(price_ghs over past 30 days)<br/>
+rolling_std_30d = standard deviation(price_ghs over past 30 days)
+</div>
+
+<p>The rolling mean tells the model the current price level. The rolling standard deviation tells the model how volatile prices have been — high volatility predicts larger price moves in either direction.</p>
+
+<h3 id="ch5-3">5.3 Price Momentum</h3>
+<p>Momentum measures the direction and speed of price change:</p>
+
+<div class="formula">
+price_momentum = (price_ghs − lag_30d) / lag_30d
+</div>
+
+<p>A positive momentum (e.g., 0.15) means prices have risen 15% over the past 30 days and are likely to continue rising in the short term. A negative momentum signals a downward trend. This is equivalent to the financial concept of price momentum used in stock market forecasting, adapted for agricultural commodities.</p>
+
+<h3 id="ch5-4">5.4 Climate Features</h3>
+<p>Climate features link weather conditions to price movements — capturing the physical mechanism by which drought reduces yield and raises prices:</p>
+
+<table>
+  <tr><th>Feature</th><th>Source</th><th>Computation</th><th>Price Effect</th></tr>
+  <tr><td>spi_30day</td><td>CHIRPS</td><td>Standardised 30-day rainfall</td><td>Low SPI → drought → yield drops → price rises</td></tr>
+  <tr><td>et0_mm</td><td>NASA POWER</td><td>Daily evapotranspiration</td><td>High ET0 → heat stress → yield drops</td></tr>
+  <tr><td>csi_value</td><td>Computed</td><td>0.65×SPI_norm + 0.35×ET0_norm</td><td>High CSI → crop stress → price increase lag</td></tr>
+  <tr><td>fuel_price_ghs</td><td>NPA scraper</td><td>Diesel price per litre</td><td>High fuel → high transport → high market price</td></tr>
+</table>
+
+<h3 id="ch5-5">5.5 The Feature Store</h3>
+<p>All engineered features are stored in the <code>feature_store</code> table in PostgreSQL. This is a standard data engineering pattern called a <em>feature store</em> — a centralised repository of pre-computed model inputs.</p>
+
+<div class="box box-green">
+  <strong>Why use a feature store?</strong>
+  Without it, every model training run would need to recompute lags and rolling statistics from scratch — taking hours. The feature store pre-computes everything once and stores it. Model training then just reads from the feature store — taking minutes.
+</div>
+
+<p>The feature store is refreshed every Sunday before the model retraining job runs:</p>
+<pre><code># ingestion/scheduler.py
+scheduler.add_job(
+    run_feature_engineering,   # Step 1: rebuild feature_store
+    trigger=CronTrigger(day_of_week="sun", hour=9, minute=30),
+)
+scheduler.add_job(
+    run_model_retrain,         # Step 2: train XGBoost from feature_store
+    trigger=CronTrigger(day_of_week="sun", hour=10, minute=0),
+)</code></pre>
+
+<!-- ══════════════════════════════════════════════════════════ CH6 -->
+<div class="chapter-title" id="ch6">
+  <div class="ch-num">Chapter 6</div>
+  <h2>Machine Learning Models</h2>
+</div>
+
+<h3 id="ch6-1">6.1 XGBoost Price Forecaster</h3>
+
+<p>XGBoost (eXtreme Gradient Boosting) is an ensemble tree method that builds many decision trees sequentially, each correcting the errors of the previous ones. It is the primary price forecasting model in AgriMatch because it:</p>
+<ul>
+  <li>Handles tabular features (lags, rolling stats, seasonality) very well</li>
+  <li>Is robust to outliers and missing values in training data</li>
+  <li>Trains in seconds per crop-market pair</li>
+  <li>Provides feature importance scores to explain which variables matter most</li>
+</ul>
+
+<p><strong>Model architecture — one model per crop-market pair:</strong></p>
+<pre><code># models/xgboost_predictor.py — training (simplified)
+import xgboost as xgb
+
+FEATURE_COLS = [
+    'lag_7d', 'lag_14d', 'lag_30d', 'lag_90d',
+    'rolling_mean_30d', 'rolling_std_30d',
+    'price_momentum', 'month', 'day_of_week',
+    'spi_30day', 'et0_mm', 'fuel_price_ghs',
+]
+TARGET = 'price_return'   # (price_t - price_{t-7}) / price_{t-7}
+
+model = xgb.XGBRegressor(
+    n_estimators=200,
+    max_depth=4,
+    learning_rate=0.05,
+    subsample=0.8,
+    colsample_bytree=0.8,
+    random_state=42,
+)
+model.fit(X_train, y_train, eval_set=[(X_val, y_val)], verbose=False)</code></pre>
+
+<p><strong>Why predict price RETURN instead of price directly?</strong> Predicting the percentage change is more generalisable across different price levels. A model that predicts "price will rise 5%" works for both maize at 0.8 GHS/kg and tomato at 3 GHS/kg. Predicting the raw price level would require separate scaling for each crop.</p>
+
+<p><strong>30/60/90-day forecasts:</strong> The model predicts the 7-day return. For 30-day, 60-day, and 90-day forecasts, it applies the predicted return iteratively — each forecast step uses the previous prediction as its input lag feature. This is called <em>multi-step forecasting with recursive strategy</em>.</p>
+
+<p><strong>Model persistence — storing models in PostgreSQL:</strong></p>
+<pre><code># ingestion/retrain.py — save trained model to database
+import pickle
+model_bytes = pickle.dumps(model)
+
+db.execute(text("""
+    INSERT INTO model_store (model_key, model_bytes, mape, mae, rmse, n_train_rows, trained_at)
+    VALUES (:key, :bytes, :mape, :mae, :rmse, :n, NOW())
+    ON CONFLICT (model_key) DO UPDATE
+    SET model_bytes = EXCLUDED.model_bytes,
+        mape        = EXCLUDED.mape,
+        trained_at  = EXCLUDED.trained_at
+"""), {"key": f"{crop}__{market}", "bytes": model_bytes, ...})</code></pre>
+
+<div class="box box-amber">
+  <strong>Why store models in the database?</strong>
+  The application runs on Railway — a cloud platform where the file system resets on every deployment. If models were stored as .pkl files, they would be lost after every code update. Storing them in PostgreSQL (as binary BYTEA) means they persist independently of deployments.
+</div>
+
+<h3 id="ch6-2">6.2 LSTM Price Forecaster</h3>
+
+<p>LSTM (Long Short-Term Memory) is a type of recurrent neural network designed for sequential data. Unlike XGBoost which treats each training example independently, LSTM explicitly processes sequences — making it capable of capturing long-range temporal dependencies.</p>
+
+<table>
+  <tr><th>XGBoost</th><th>LSTM</th></tr>
+  <tr><td>Tabular features as input</td><td>Sequence of past prices as input</td></tr>
+  <tr><td>Fast training (seconds)</td><td>Slower training (minutes)</td></tr>
+  <tr><td>Great for feature-rich data</td><td>Great for long sequential patterns</td></tr>
+  <tr><td>Works with small datasets</td><td>Needs more data (60+ observations)</td></tr>
+  <tr><td>Easy to interpret (feature importance)</td><td>Black box (harder to explain)</td></tr>
+</table>
+
+<p>On the product detail page, both models are shown together — the green XGBoost line and the amber dashed LSTM line. When they agree, confidence in the forecast is high. When they diverge, it signals higher uncertainty.</p>
+
+<h3 id="ch6-3">6.3 ARIMA/SARIMA Baseline</h3>
+<p>ARIMA (AutoRegressive Integrated Moving Average) and SARIMA (with Seasonal component) are classical statistical time-series models. They serve as the baseline — if XGBoost cannot outperform ARIMA, the machine learning approach adds no value.</p>
+
+<p>ARIMA(p, d, q) parameters:</p>
+<ul>
+  <li><strong>p</strong> = number of autoregressive lags (how many past values to use)</li>
+  <li><strong>d</strong> = degree of differencing (to make the series stationary)</li>
+  <li><strong>q</strong> = moving average window (smoothing)</li>
+</ul>
+
+<p>SARIMA adds (P, D, Q, m) seasonal parameters, where m=52 captures the annual weekly cycle. These parameters are stored in the <code>model_baselines</code> table and displayed in the Admin → Models page.</p>
+
+<h3 id="ch6-4">6.4 Harvest Delay Classifier</h3>
+
+<p>The harvest delay classifier predicts how many days a farmer's harvest might be delayed due to current climate stress. It is a rule-based classifier — not a neural network — because the underlying physical relationship is well understood:</p>
+
+<div class="formula">
+Worst CSI = max(CSI_maize, CSI_tomato, CSI_onion, CSI_cassava, CSI_rice, CSI_plantain)
+
+if Worst_CSI &lt; 0.30 → delay = 0 days (normal)
+if Worst_CSI &lt; 0.55 → delay = 3 days (watch)
+if Worst_CSI &lt; 0.75 → delay = 9 days (warning)
+if Worst_CSI ≥ 0.75 → delay = 18 days (critical)
+</div>
+
+<p>The classifier runs nightly and updates the <code>adjusted_harvest_date</code> field for every active farmer declaration. When the seller views their dashboard, they see a red or amber alert if their harvest might be delayed.</p>
+
+<h3 id="ch6-5">6.5 Crop Recommender</h3>
+
+<p>The crop recommender answers the question: <em>"Given this farmer's location and current conditions, which crop should they plant next?"</em> It is a multi-criteria scoring model:</p>
+
+<div class="formula">
+composite_score = 0.40 × climate_score + 0.35 × supply_score + 0.25 × price_score
+</div>
+
+<p><strong>Climate score</strong> — how suitable is the weather for this crop in this district right now? Derived from CSI: low CSI = good climate = high climate_score.</p>
+
+<p><strong>Supply score</strong> — how undersupplied is this crop? Calculated from total active declarations relative to a benchmark supply level per crop. If few farmers are growing it, the supply score is high (opportunity).</p>
+
+<p><strong>Price score</strong> — what does the XGBoost forecast say about future prices for this crop? Higher forecast return → higher price_score.</p>
+
+<p>The result is a ranked list of crops (e.g., "Onion: STRONG, Tomato: MODERATE, Cassava: WEAK") shown on the Planting Calendar page and in the seller dashboard recommendations panel.</p>
+
+<h3 id="ch6-6">6.6 Matchmaking Engine</h3>
+
+<p>The matchmaking engine ranks farmer listings for a buyer query using five sub-scores. This is not a machine learning model — it is an <em>algorithmic scoring system</em> designed by translating buyer decision criteria into mathematics:</p>
+
+<div class="score-bar">
+  <div class="score-label">Quantity match</div>
+  <div class="score-track"><div class="score-fill" style="width:25%"></div></div>
+  <div class="score-pct">25%</div>
+</div>
+<div class="score-bar">
+  <div class="score-label">Distance (road km)</div>
+  <div class="score-track"><div class="score-fill" style="width:25%"></div></div>
+  <div class="score-pct">25%</div>
+</div>
+<div class="score-bar">
+  <div class="score-label">Price competitiveness</div>
+  <div class="score-track"><div class="score-fill" style="width:20%"></div></div>
+  <div class="score-pct">20%</div>
+</div>
+<div class="score-bar">
+  <div class="score-label">Reliability (CSI flag)</div>
+  <div class="score-track"><div class="score-fill" style="width:20%"></div></div>
+  <div class="score-pct">20%</div>
+</div>
+<div class="score-bar">
+  <div class="score-label">Timing (harvest date)</div>
+  <div class="score-track"><div class="score-fill" style="width:10%"></div></div>
+  <div class="score-pct">10%</div>
+</div>
+
+<div class="formula">
+match_score = 0.25×quantity_score + 0.25×distance_score + 0.20×price_score + 0.20×reliability_score + 0.10×timing_score
+</div>
+
+<p>Each sub-score is normalised to [0, 1]. The composite match_score appears as stars on every product card (4 stars = score ≥ 0.75, 5 stars = score ≥ 0.90).</p>
+
+<h3 id="ch6-7">6.7 Model Evaluation Metrics</h3>
+<table>
+  <tr><th>Metric</th><th>Full Name</th><th>Formula</th><th>What it Measures</th></tr>
+  <tr><td>MAPE</td><td>Mean Absolute Percentage Error</td><td>mean(|actual - predicted| / actual)</td><td>Average % error — interpretable in business terms</td></tr>
+  <tr><td>MAE</td><td>Mean Absolute Error</td><td>mean(|actual - predicted|)</td><td>Average error in GHS/kg — easy to understand</td></tr>
+  <tr><td>RMSE</td><td>Root Mean Square Error</td><td>√(mean((actual - predicted)²))</td><td>Penalises large errors more — useful when big misses are costly</td></tr>
+</table>
+
+<p>These metrics are stored in the <code>model_store</code> table after each training run and displayed in the Admin → Models page. A MAPE below 15% is considered acceptable for agricultural commodity forecasting.</p>
+
+<!-- ══════════════════════════════════════════════════════════ CH7 -->
+<div class="chapter-title" id="ch7">
+  <div class="ch-num">Chapter 7</div>
+  <h2>Climate Data Science</h2>
+</div>
+
+<p>Climate science is the backbone of AgriMatch's risk assessment system. Understanding rainfall and heat stress allows the platform to predict harvest delays before they happen and adjust sell strategies accordingly.</p>
+
+<h3 id="ch7-1">7.1 SPI — Standardized Precipitation Index</h3>
+
+<p>The SPI is a widely used drought index developed by McKee et al. (1993) and endorsed by the World Meteorological Organisation. It measures how unusual the current rainfall is relative to the long-term historical average for that same calendar month and district.</p>
+
+<div class="formula">
+SPI = (R_30day − μ_month) / σ_month
+
+Where:
+  R_30day   = cumulative rainfall over the past 30 days
+  μ_month   = long-term mean rainfall for this calendar month (from SPI baselines)
+  σ_month   = long-term standard deviation for this calendar month
+</div>
+
+<table>
+  <tr><th>SPI Value</th><th>Category</th><th>Agricultural Interpretation</th></tr>
+  <tr><td>&gt; 2.0</td><td>Extremely wet</td><td>Flooding risk, root rot, delayed field access</td></tr>
+  <tr><td>0.5 to 2.0</td><td>Normal to moderately wet</td><td>Good growing conditions</td></tr>
+  <tr><td>-0.5 to 0.5</td><td>Near normal</td><td>No significant stress</td></tr>
+  <tr><td>-1.0 to -0.5</td><td>Moderately dry</td><td>Mild stress — monitor closely</td></tr>
+  <tr><td>-2.0 to -1.0</td><td>Severely dry</td><td>Significant yield impact expected</td></tr>
+  <tr><td>&lt; -2.0</td><td>Extreme drought</td><td>Major crop failure risk</td></tr>
+</table>
+
+<p>The SPI baselines (μ and σ per district per calendar month) are computed from 30+ years of CHIRPS historical data and stored in the <code>spi_baselines</code> table. They are refreshed monthly from the full CHIRPS archive.</p>
+
+<h3 id="ch7-2">7.2 ET0 — Reference Evapotranspiration</h3>
+
+<p>ET0 measures how much water would evaporate from a well-watered reference grass surface. High ET0 indicates high atmospheric demand for water — essentially, the "thirst" of the atmosphere. When ET0 is high but rainfall is low, plants experience water stress.</p>
+
+<div class="formula">
+ET0 normalised = min(1.0, max(0.0, (ET0_mm − 2.0) / 8.0))
+
+Where: ET0 of 2 mm/day = low demand (cool, humid), ET0 of 10 mm/day = extreme demand
+</div>
+
+<p>The raw ET0 values come from NASA POWER and are stored in <code>nasa_power_daily</code>. Values are normalised to [0, 1] using the formula above before combining with SPI in the CSI.</p>
+
+<h3 id="ch7-3">7.3 CSI — Crop Stress Index</h3>
+
+<p>The CSI is AgriMatch's proprietary composite index that combines SPI (water supply) and ET0 (water demand) into a single crop stress score. Different crops have different sensitivities to each factor:</p>
+
+<div class="formula">
+CSI_maize   = 0.65 × SPI_norm + 0.35 × ET0_norm
+CSI_tomato  = 0.50 × SPI_norm + 0.50 × ET0_norm
+CSI_cassava = 0.60 × SPI_norm + 0.40 × ET0_norm
+CSI_onion   = 0.55 × SPI_norm + 0.45 × ET0_norm
+CSI_rice    = 0.70 × SPI_norm + 0.30 × ET0_norm
+CSI_plantain= 0.60 × SPI_norm + 0.40 × ET0_norm
+
+Where SPI_norm = min(1, max(0, -SPI/2))   [drought → high value]
+      ET0_norm = normalised ET0 (above)
+</div>
+
+<p>Maize has a higher rainfall weight (0.65) because it is more sensitive to drought during pollination. Tomato has equal weights because it is sensitive to both drought and heat. Cassava has a moderate rainfall weight because it is drought-tolerant.</p>
+
+<div class="box box-blue">
+  <strong>These weights were calibrated using:</strong>
+  Published agronomic literature on water requirements for West African crops, combined with back-testing on historical CSI vs observed yield data from MoFA district reports.
+</div>
+
+<p>The CSI is computed daily via SQL for every district in Ghana and stored in <code>climate_indicators</code>. The flag levels are:</p>
+
+<table>
+  <tr><th>CSI (worst crop)</th><th>Flag Level</th><th>Color in App</th><th>Action</th></tr>
+  <tr><td>&lt; 0.30</td><td>Normal</td><td>Green</td><td>No action needed</td></tr>
+  <tr><td>0.30 – 0.55</td><td>Watch</td><td>Yellow</td><td>Monitor closely</td></tr>
+  <tr><td>0.55 – 0.75</td><td>Warning</td><td>Orange</td><td>Notify farmer, consider early harvest</td></tr>
+  <tr><td>&gt; 0.75</td><td>Alert/Critical</td><td>Red</td><td>SMS alert sent, harvest delay predicted</td></tr>
+</table>
+
+<h3 id="ch7-4">7.4 Harvest Delay Estimation</h3>
+
+<p>The harvest delay is computed from the worst CSI score across all tracked crops in a district. The estimated delay days are added to the original harvest date to produce the <code>adjusted_harvest_date</code>:</p>
+
+<pre><code>-- From the nightly CSI computation SQL (scheduler.py)
+CASE WHEN worst_csi &lt; 0.30 THEN 0
+     WHEN worst_csi &lt; 0.55 THEN 3
+     WHEN worst_csi &lt; 0.75 THEN 9
+     ELSE 18
+END AS harvest_delay_days</code></pre>
+
+<p>When a farmer's listing shows "Harvest in 14 days" but the CSI flag is "warning", the buyer sees a caution note explaining that the actual harvest might be 9 days later than declared. This transparency is what makes AgriMatch trustworthy — the platform is honest about uncertainty.</p>
+
+<!-- ══════════════════════════════════════════════════════════ CH8 -->
+<div class="chapter-title" id="ch8">
+  <div class="ch-num">Chapter 8</div>
+  <h2>Page-by-Page Explanation</h2>
+</div>
+
+<p>This chapter walks through every page of the AgriMatch application and explains <em>exactly</em> what data science concept powers each element the user sees.</p>
+
+<!-- HOME PAGE -->
+<h3 id="pg-home">8.1 Homepage (<code>/</code>)</h3>
+<span class="page-badge">Public</span> <span class="page-badge">No Login Required</span>
+
+<p>The homepage is the first thing visitors see. It is designed to demonstrate the platform's data-driven nature immediately.</p>
+
+<table>
+  <tr><th>Element</th><th>Data Science Behind It</th><th>Database Table</th></tr>
+  <tr><td>Hero slideshow (crop images)</td><td>CSS animation — no DS; crops chosen based on market data volume</td><td>—</td></tr>
+  <tr><td>"Verified farmers · Real-time prices · Always free"</td><td>Marketing copy — reflects live data</td><td>—</td></tr>
+  <tr><td>Shop by Crop grid</td><td>Queries <code>crop_reference</code> — crops sorted by number of active declarations (supply signal)</td><td>crop_reference</td></tr>
+  <tr><td>Browse by Region cards</td><td>Counts markets and districts per region from <code>ghana_markets</code> — data-driven market coverage</td><td>ghana_markets, ghana_districts</td></tr>
+  <tr><td>Animated stats (active farmers, markets, declarations, value)</td><td>Live aggregation queries — COUNT and SUM across tables in real time</td><td>farmers, farmer_declarations, ghana_markets</td></tr>
+  <tr><td>Deal banners (Fresh Maize, Tomato Surplus)</td><td>Static but reflect real market knowledge from EDA</td><td>—</td></tr>
+</table>
+
+<div class="box box-green">
+  <strong>Defense point: "What data science is on the homepage?"</strong>
+  The region cards show LIVE data from the database — the market count and district count come from a real SQL aggregation query. The animated statistics (37,933 clean rows, 44 markets) are computed fresh on every page load, not hardcoded. The crop grid is sorted by data availability — crops with more market data appear first.
+</div>
+
+<!-- SHOP PAGE -->
+<h3 id="pg-shop">8.2 Marketplace (<code>/shop</code>)</h3>
+<span class="page-badge">Public</span>
+
+<p>The shop page is where buyers discover farmer listings. Every visible element reflects a data science decision.</p>
+
+<table>
+  <tr><th>Element</th><th>Data Science Behind It</th></tr>
+  <tr><td>Crop tabs (horizontal strip)</td><td>Crops loaded from <code>crop_reference</code> table — only crops with actual market data appear</td></tr>
+  <tr><td>Region filter</td><td>Filters <code>farmer_declarations</code> by <code>ghana_districts.region_name</code> — geographic data join</td></tr>
+  <tr><td>Product cards with match stars</td><td>Match score from the 5-factor matchmaking algorithm (Chapter 6.6) — higher match = better fit for buyer</td></tr>
+  <tr><td>"New" badge on cards</td><td>Computed: <code>created_at >= NOW() - INTERVAL '7 days'</code> — freshness signal</td></tr>
+  <tr><td>"Soon" / "Urgent" badge</td><td>Computed from <code>harvest_date - TODAY</code> — days-to-harvest calculation</td></tr>
+  <tr><td>Climate alert badge</td><td>From <code>csi_flag</code> — red badge appears when CSI is "alert" level</td></tr>
+  <tr><td>Price display (GHS/kg)</td><td>From <code>price_forecast_ghs</code> — output of XGBoost model, not farmer-entered</td></tr>
+  <tr><td>Farmer store name on card</td><td>FROM JOIN: <code>farmer_declarations → farmers.full_name</code></td></tr>
+  <tr><td>Fresh Listings (default view)</td><td>API call to <code>/api/listings</code> — sorted by harvest_date ASC, showing most-urgent harvests first</td></tr>
+  <tr><td>Today's Best Prices view</td><td>API call to <code>/api/listings/best</code> — sorted by <code>price_forecast_ghs DESC</code>, highest-value listings first</td></tr>
+  <tr><td>Sort by: Best Match</td><td>Sorts by <code>match_score</code> — the composite algorithm output</td></tr>
+</table>
+
+<!-- PRODUCT DETAIL -->
+<h3 id="pg-detail">8.3 Product Detail Page (<code>/shop/[id]</code>)</h3>
+<span class="page-badge">Public</span>
+
+<p>This is the most data-science-rich page in the entire application. Every section is driven by a different model or algorithm.</p>
+
+<h4>Price Forecast Chart</h4>
+<p>The interactive line chart shows two model outputs side by side:</p>
+<ul>
+  <li><strong>Green solid line (XGBoost)</strong> — 30, 60, 90-day forecasts from the gradient boosting model trained on price history + climate features</li>
+  <li><strong>Amber dashed line (LSTM)</strong> — 30, 60, 90-day forecasts from the neural network model trained on price sequences</li>
+  <li><strong>Current price point ("Now")</strong> — the <code>last_known_price</code> from the most recent market observation</li>
+</ul>
+
+<div class="box box-blue">
+  <strong>How to explain this chart in defense:</strong>
+  "We trained separate XGBoost and LSTM models for each crop-market pair. XGBoost uses tabular lag features and climate variables. LSTM processes price sequences. By showing both, we give buyers two independent forecasting perspectives. If both lines trend upward, confidence in a price rise is high. If they diverge, uncertainty is high and the buyer should be cautious."
+</div>
+
+<h4>Buyer Sourcing Strategy</h4>
+<p>Below the chart, a strategy card tells the buyer whether to "Buy Now" or "Wait."</p>
+<pre><code># models/strategy_generator.py — buyer_sourcing_strategy()
+# Uses XGBoost forecast at 30-day horizon
+xgb_30d = forecast at 30 days
+if forecast_direction == "down" and xgb_30d &lt; last_price:
+    strategy = "wait"          # Price falling — waiting saves money
+    saving_per_kg = last_price - xgb_30d
+else:
+    strategy = "buy_now"       # Price stable or rising — buy now</code></pre>
+
+<p>This translates the XGBoost model output into plain English that a market trader can act on. The "available suppliers" list shows the top 5 closest farmers for that crop — direct output of a spatial query using <code>district_distances</code>.</p>
+
+<h4>Price Across Markets Table</h4>
+<p>Shows the same crop's XGBoost forecast for up to 8 different markets. This lets buyers compare: "Cassava is cheaper in Tamale than Accra right now — should I source from the north?"</p>
+
+<h4>Similar Listings Section</h4>
+<p>Uses the matchmaking engine with the current listing's district as the "buyer district." Returns other listings for the same crop, ranked by composite match score. This is collaborative filtering in spirit — "others who looked at this listing also found these alternatives relevant."</p>
+
+<h4>Climate Risk Display</h4>
+<p>The "Climate risk: NORMAL / WATCH / WARNING / ALERT" comes directly from the daily CSI computation for the farmer's district. If it shows "WARNING," the buyer knows the harvest might be delayed by 9 days.</p>
+
+<!-- MARKET BULLETIN -->
+<h3 id="pg-market">8.4 Market Bulletin (<code>/market</code>)</h3>
+<span class="page-badge">Public</span>
+
+<p>The market bulletin is a live price board — equivalent to a stock ticker but for agricultural commodities.</p>
+
+<table>
+  <tr><th>Element</th><th>Data Science Behind It</th></tr>
+  <tr><td>Latest price per market</td><td>DISTINCT ON (crop, market) query to get most recent observation from <code>clean_prices</code></td></tr>
+  <tr><td>30-day price change (%)</td><td>(latest_price − price_30d_ago) / price_30d_ago × 100 — percentage return calculation</td></tr>
+  <tr><td>Trend badges (Surging / Rising / Stable / Falling / Dropping)</td><td>Thresholded on the 30-day change: &gt;10% = Surging, 3-10% = Rising, ±3% = Stable, etc.</td></tr>
+  <tr><td>Average price header per crop section</td><td>Mean of latest prices across all markets for that crop — cross-market aggregation</td></tr>
+  <tr><td>Best market highlight</td><td>argmax(latest_price) per crop — identifies highest-value market</td></tr>
+</table>
+
+<div class="box box-green">
+  <strong>Defense point: "This is exactly what EDA does — except automated and live"</strong>
+  The market bulletin is the real-time version of the seasonal price analysis we did in EDA (Chapter 3). Instead of a one-time notebook analysis, it runs from the database every time a buyer loads the page.
+</div>
+
+<!-- DEMAND BOARD -->
+<h3 id="pg-demand">8.5 Demand Board (<code>/demand</code>)</h3>
+<span class="page-badge">Public</span>
+
+<p>The demand board completes the two-sided marketplace by giving buyers a voice. Instead of farmers guessing what buyers want, buyers explicitly post their requirements.</p>
+
+<p><strong>Data science significance:</strong> Buyer requests generate demand signal data. Over time, the pattern of buyer requests — which crops they seek, in which regions, at what quantities — can be used to:</p>
+<ul>
+  <li>Validate the crop recommender's predictions (do farmers who grew recommended crops receive more buyer requests?)</li>
+  <li>Build a demand forecasting model — predicting what buyers will want next season</li>
+  <li>Train a market-clearing price model — matching supply declarations to demand requests</li>
+</ul>
+
+<p>The demand board stores data in the <code>buyer_requests</code> table which is auto-created on first use (<code>CREATE TABLE IF NOT EXISTS</code>). This is a data collection strategy — starting to accumulate demand signal data before building demand models.</p>
+
+<!-- BUYER DASHBOARD -->
+<h3 id="pg-dashboard">8.6 Buyer Dashboard (<code>/dashboard</code>)</h3>
+<span class="page-badge">Login Required (Buyer)</span>
+
+<table>
+  <tr><th>Feature</th><th>Data Science Concept</th></tr>
+  <tr><td>Saved listings (watchlist)</td><td>Personalisation — user-specific state stored in localStorage. Foundation for collaborative filtering.</td></tr>
+  <tr><td>Price alerts (set threshold)</td><td>Alert trigger — when actual market price drops below the buyer's threshold, an SMS alert fires. This is a threshold-based decision rule — simplest form of anomaly detection.</td></tr>
+  <tr><td>Quick actions to Market Prices, Demand Board</td><td>Navigation — links to the data science features</td></tr>
+</table>
+
+<!-- FARMER PROFILE -->
+<h3 id="pg-farmer">8.7 Farmer Store (<code>/shop/farmers/[id]</code>)</h3>
+<span class="page-badge">Public</span>
+
+<p>The farmer store page aggregates all data for a specific farmer. The "completed sales" count is a trust signal — a farmer with 50 completed reservations is more reliable than a new one. This is a simple reputation score, the foundation of more sophisticated trust models (rating systems, fraud detection).</p>
+
+<table>
+  <tr><th>Element</th><th>Query / Data Science</th></tr>
+  <tr><td>Active listings grid</td><td>SELECT FROM farmer_declarations WHERE farmer_id=X AND status='active'</td></tr>
+  <tr><td>Completed sales count</td><td>COUNT(reservations) WHERE status='confirmed' — aggregation across the payment table</td></tr>
+  <tr><td>Star rating</td><td>Derived from completed sales count — proxy for reputation (real rating system would collect buyer reviews)</td></tr>
+  <tr><td>Member since</td><td>farmers.created_at — temporal data showing experience level</td></tr>
+</table>
+
+<!-- SELLER DASHBOARD -->
+<h3 id="pg-seller">8.8 Seller Dashboard (<code>/seller</code>)</h3>
+<span class="page-badge">Login Required (Farmer)</span>
+
+<p>The seller dashboard is where machine learning models directly speak to farmers in plain language.</p>
+
+<h4>AI Sell Strategies Panel</h4>
+<p>Each strategy card is generated by the <code>StrategyGenerator</code> model:</p>
+<ol>
+  <li>For each of the farmer's active declarations, it fetches the XGBoost forecast</li>
+  <li>It computes the price direction (up or down over 30 days) and magnitude</li>
+  <li>It writes a plain-English strategy: "Sell now — prices forecast to fall 12% by August"</li>
+  <li>It assigns an urgency level: <code>sell_now</code>, <code>sell_soon</code>, or <code>neutral</code></li>
+</ol>
+
+<pre><code># models/strategy_generator.py
+if price_direction == "down" and abs(price_change_pct) > 5:
+    urgency  = "sell_now"
+    headline = f"Sell {crop} now — prices forecast to fall {abs(pct):.1f}%"
+elif price_direction == "up":
+    urgency  = "sell_soon"
+    headline = f"Hold {crop} — prices rising {pct:.1f}% over next 30 days"
+else:
+    urgency  = "neutral"
+    headline = f"Prices stable for {crop} — sell at your convenience"</code></pre>
+
+<h4>Harvest Delay Alerts</h4>
+<p>Red/amber banners appear for any declaration in a district with CSI flag "warning" or "alert." This is the output of the daily climate pipeline (Chapter 7) translated into an actionable farmer notification.</p>
+
+<h4>AI Crop Recommendations Panel</h4>
+<p>Shows the crop recommender output (Chapter 6.5) — ranked crops with strength labels (Strong / Moderate / Weak) and a plain-English reason:</p>
+<ul>
+  <li>"Onion: STRONG — Low local supply gap + favourable rainfall + rising 90-day price forecast"</li>
+  <li>"Cassava: MODERATE — Good climate conditions but market already well supplied"</li>
+</ul>
+
+<h4>Cooperative Transport Panel</h4>
+<p>Shows which transport jobs the farmer's declarations have been grouped into (output of the cooperative logistics grouping algorithm — Chapter 6.6), and whether a real transport provider has been matched (output of the transport matching algorithm).</p>
+
+<h4>Byproduct Listings Table</h4>
+<p>Shows byproduct declarations linked to the farmer's active crop declarations. This is a JOIN across three tables: <code>byproduct_declarations → farmer_declarations → ghana_districts</code>.</p>
+
+<!-- SELLER ANALYTICS -->
+<h3 id="pg-analytics">8.9 Seller Analytics (<code>/seller/analytics</code>)</h3>
+<span class="page-badge">Login Required (Farmer)</span>
+
+<p>This page is the closest AgriMatch comes to a traditional data science dashboard — it shows the farmer's own numbers and the market context around them.</p>
+
+<table>
+  <tr><th>Chart / Metric</th><th>Computation</th><th>Data Science Concept</th></tr>
+  <tr><td>Historical price trend (18 months)</td><td>Monthly AVG(price_ghs) from clean_prices, grouped by month</td><td>Time-series aggregation — shows seasonal cycle from EDA</td></tr>
+  <tr><td>Current market prices chart</td><td>/api/market/{crop} for each of the farmer's crops</td><td>Cross-market comparison — spatial price analysis</td></tr>
+  <tr><td>Projected income by harvest month</td><td>quantity_kg × price_forecast_ghs × declarations per month</td><td>Revenue forecasting — applies ML price prediction to business metric</td></tr>
+  <tr><td>Est. income stat card</td><td>SUM(quantity_kg × price_forecast_ghs) across all active declarations</td><td>Portfolio valuation — total expected revenue under forecast prices</td></tr>
+  <tr><td>Avg forecast GHS/kg</td><td>MEAN(price_forecast_ghs) — central tendency of all price forecasts</td><td>Descriptive statistics</td></tr>
+</table>
+
+<div class="box box-amber">
+  <strong>Defense point: "The 18-month historical chart shows our EDA visually"</strong>
+  When a farmer looks at the 18-month price trend for their crop, they are seeing the output of the same seasonal analysis we did in EDA. The chart makes visible the seasonality that XGBoost learned to predict.
+</div>
+
+<!-- PLANTING CALENDAR -->
+<h3 id="pg-planting">8.10 Planting Calendar (<code>/seller/planting</code>)</h3>
+<span class="page-badge">Login Required (Farmer)</span>
+
+<p>The planting calendar is where the most sources of data science come together in one interface:</p>
+
+<ul>
+  <li><strong>EDA results</strong> → peak price months per crop (from seasonal analysis)</li>
+  <li><strong>Agronomic knowledge</strong> → growing days per crop (codified in <code>_CROP_SEASONS</code>)</li>
+  <li><strong>Climate pipeline</strong> → current SPI/CSI for the farmer's district</li>
+  <li><strong>Algorithm</strong> → optimal_plant_date = next_peak_date − growing_days</li>
+</ul>
+
+<p>The result is a ranked list of all crops with one of four recommendations:</p>
+
+<table>
+  <tr><th>Advice Code</th><th>Condition</th><th>What It Means</th></tr>
+  <tr><td>plant_now</td><td>days_to_plant ≤ 0</td><td>Optimal window is here — plant immediately</td></tr>
+  <tr><td>plant_soon</td><td>1–14 days</td><td>Window opens in 1–2 weeks — prepare seeds and land</td></tr>
+  <tr><td>prepare</td><td>15–45 days</td><td>Start land preparation but don't plant yet</td></tr>
+  <tr><td>wait</td><td>&gt; 45 days</td><td>Too early — waiting maximises market timing</td></tr>
+</table>
+
+<p>The <strong>visual timeline bar</strong> on each crop card shows the full journey: Today → Plant Date → Harvest Date → Peak Price Month. This makes abstract calendar arithmetic tangible for a farmer with limited schooling.</p>
+
+<!-- ROI CALCULATOR -->
+<h3 id="pg-roi">8.11 ROI Calculator (<code>/seller/roi</code>)</h3>
+<span class="page-badge">Login Required (Farmer)</span>
+
+<p>The ROI calculator answers the most fundamental farming question: <em>"If I grow X kg of cassava and sell it in Accra, how much money will I make after transport costs?"</em></p>
+
+<table>
+  <tr><th>Input</th><th>Source</th><th>Data Science Step</th></tr>
+  <tr><td>Crop</td><td>User selection</td><td>—</td></tr>
+  <tr><td>Quantity (kg)</td><td>User input</td><td>—</td></tr>
+  <tr><td>Source district</td><td>Pre-filled from session</td><td>—</td></tr>
+  <tr><td>Target market district</td><td>User selection</td><td>—</td></tr>
+  <tr><td>Forecast price (GHS/kg)</td><td>XGBoost model → last_known_price or 30-day forecast</td><td>ML inference</td></tr>
+  <tr><td>Transport cost (GHS)</td><td>logistics_costs table — pre-computed cost matrix</td><td>Operations research optimisation</td></tr>
+</table>
+
+<div class="formula">
+Gross Revenue = forecast_price_per_kg × quantity_kg
+Net Revenue   = Gross Revenue − transport_cost_ghs
+Margin %      = (Net Revenue / Gross Revenue) × 100
+</div>
+
+<p>The transport cost comes from the <code>logistics_costs</code> table which was pre-populated using the <code>LogisticsCostModel</code>. This model estimates road transport cost based on distance (from <code>district_distances</code>), vehicle type, and Ghana's NPA fuel prices. The fuel price is updated weekly from the NPA website scraper.</p>
+
+<!-- BYPRODUCTS -->
+<h3 id="pg-byproducts">8.12 Byproducts Marketplace (<code>/byproducts</code>)</h3>
+<span class="page-badge">Public</span>
+
+<p>The byproducts marketplace addresses food waste — a significant problem in Ghana where maize husks, cassava skins, and rice bran are often discarded. The data science angle:</p>
+<ul>
+  <li>Byproduct listings are linked to primary crop declarations via the <code>byproduct_declarations</code> table — a JOIN relationship that captures the full value chain</li>
+  <li>Perishability urgency is computed: <code>available_date − TODAY</code> → if &lt; 7 days and is_perishable, urgency = "urgent"</li>
+  <li>The matchmaking engine is extended to rank byproduct listings by buyer distance and product availability</li>
+</ul>
+
+<!-- TRANSPORT -->
+<h3 id="pg-transport">8.13 Transport Registration (<code>/transport</code>)</h3>
+<span class="page-badge">Public</span>
+
+<p>The transport registration page feeds the automated transport matching pipeline (Chapter 6.6). Each registered provider has:</p>
+<ul>
+  <li>Base district → used for distance scoring in the matching algorithm</li>
+  <li>Truck capacity (kg) → must exceed cargo weight to be eligible</li>
+  <li>Service regions → geographic filter in the matching query</li>
+  <li>Rating (starts at 5.0, degrades with missed pickups) → quality signal in the composite score</li>
+</ul>
+
+<p>The matching algorithm runs at 22:30 UTC every night, after the cooperative logistics grouping at 22:00. It is fully automated — registered providers receive job assignments without any manual dispatcher intervention.</p>
+
+<!-- ADMIN -->
+<h3 id="pg-admin">8.14 Admin Portal (<code>/admin</code>)</h3>
+<span class="page-badge">Login Required (Admin)</span>
+
+<table>
+  <tr><th>Admin Page</th><th>Data Science Monitoring</th></tr>
+  <tr><td>Admin dashboard</td><td>Live counts: active farmers, markets, declarations; pipeline run status; USSD session stats</td></tr>
+  <tr><td>Models page</td><td>Shows MAPE, MAE, RMSE per crop-market pair; trained_at timestamp; model accuracy trend</td></tr>
+  <tr><td>Pipeline stats page</td><td>Ingestion log: rows_fetched, rows_clean, rows_quarantined per pipeline run — data quality monitoring</td></tr>
+  <tr><td>Farmers page</td><td>Approve/decline farmer registrations; view declaration counts; manage farmer status</td></tr>
+  <tr><td>Markets page</td><td>Reference data for all 44 markets — geographic anchors for the price data</td></tr>
+  <tr><td>USSD test page</td><td>Simulate USSD sessions — test the mobile interface that low-literacy farmers use</td></tr>
+</table>
+
+<div class="box box-amber">
+  <strong>Why the admin panel matters for data science defense</strong>
+  The pipeline stats page shows the health of our data pipeline in real time. A data scientist needs to monitor data quality continuously — the quarantine rate, ingestion frequency, and model accuracy metrics are exactly the KPIs (Key Performance Indicators) that ensure the models are working on fresh, clean data.
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ CH9 -->
+<div class="chapter-title" id="ch9">
+  <div class="ch-num">Chapter 9</div>
+  <h2>System Architecture</h2>
+</div>
+
+<h3>9.1 Technology Stack</h3>
+<table>
+  <tr><th>Layer</th><th>Technology</th><th>Purpose</th></tr>
+  <tr><td>Database</td><td>PostgreSQL (Neon — serverless)</td><td>All structured data: prices, declarations, climate, models</td></tr>
+  <tr><td>Backend API</td><td>FastAPI (Python 3.11)</td><td>REST endpoints; model inference; strategy generation</td></tr>
+  <tr><td>ML Models</td><td>XGBoost, Keras/TensorFlow (LSTM), Statsmodels (ARIMA)</td><td>Price forecasting</td></tr>
+  <tr><td>Scheduler</td><td>APScheduler (BlockingScheduler)</td><td>Nightly/weekly automated jobs</td></tr>
+  <tr><td>Frontend</td><td>Next.js 16 (React), Tailwind CSS, Recharts</td><td>Buyer and seller web interfaces</td></tr>
+  <tr><td>Deployment</td><td>Railway (API + Scheduler), Vercel (Frontend)</td><td>Cloud hosting with auto-deploy from GitHub</td></tr>
+  <tr><td>Mobile access</td><td>Africa's Talking USSD</td><td>Feature-phone farmers without smartphones</td></tr>
+  <tr><td>Payments</td><td>MoMo simulation (MTN / Vodafone / AirtelTigo)</td><td>Mobile money reservation payments</td></tr>
+</table>
+
+<h3>9.2 Data Flow (End to End)</h3>
+<div class="flow">
+  <div class="flow-step">
+    <div class="flow-num">1</div>
+    <div class="flow-body"><strong>Data Sources</strong> — HDX, MoFA, CHIRPS, NASA POWER, NPA Fuel, Farmer Excel upload</div>
+  </div>
+  <div class="flow-arrow">↓ (nightly scheduler)</div>
+  <div class="flow-step">
+    <div class="flow-num">2</div>
+    <div class="flow-body"><strong>Raw Storage</strong> — raw_prices table (untouched originals)</div>
+  </div>
+  <div class="flow-arrow">↓ (validate + transform)</div>
+  <div class="flow-step">
+    <div class="flow-num">3</div>
+    <div class="flow-body"><strong>Clean Storage</strong> — clean_prices table (standardised GHS/kg)</div>
+  </div>
+  <div class="flow-arrow">↓ (feature engineering — Sunday 9:30 UTC)</div>
+  <div class="flow-step">
+    <div class="flow-num">4</div>
+    <div class="flow-body"><strong>Feature Store</strong> — feature_store table with 15+ engineered features per observation</div>
+  </div>
+  <div class="flow-arrow">↓ (model training — Sunday 10:00 UTC)</div>
+  <div class="flow-step">
+    <div class="flow-num">5</div>
+    <div class="flow-body"><strong>Model Store</strong> — model_store table with pickled XGBoost models (one per crop-market pair)</div>
+  </div>
+  <div class="flow-arrow">↓ (API inference — on every user request)</div>
+  <div class="flow-step">
+    <div class="flow-num">6</div>
+    <div class="flow-body"><strong>User Interface</strong> — price forecasts, strategies, recommendations shown on the web/USSD interface</div>
+  </div>
+</div>
+
+<h3>9.3 Scheduled Jobs Summary</h3>
+<table>
+  <tr><th>Time (UTC)</th><th>Job</th><th>Purpose</th></tr>
+  <tr><td>05:00 daily</td><td>CHIRPS rainfall update</td><td>Fetch yesterday's satellite rainfall per district</td></tr>
+  <tr><td>05:30 daily</td><td>NASA POWER weather</td><td>Fetch ET0 values for CSI computation</td></tr>
+  <tr><td>06:00 daily</td><td>Climate indicators</td><td>Compute SPI, CSI, harvest_delay_days for all districts</td></tr>
+  <tr><td>07:00 daily</td><td>HDX price ingestion</td><td>Fetch, validate, and clean latest market prices</td></tr>
+  <tr><td>07:30 daily</td><td>Harvest delay update</td><td>Update adjusted_harvest_date for all active declarations</td></tr>
+  <tr><td>08:00 daily</td><td>SMS alerts</td><td>Send price change and CSI alert messages to farmers</td></tr>
+  <tr><td>Mon 06:00</td><td>MoFA price ingestion</td><td>Process weekly MoFA Excel files</td></tr>
+  <tr><td>Mon 06:30</td><td>NPA fuel price scrape</td><td>Update diesel prices for logistics cost model</td></tr>
+  <tr><td>22:00 daily</td><td>Cooperative logistics</td><td>Group active declarations into shared truck runs</td></tr>
+  <tr><td>22:30 daily</td><td>Transport matching</td><td>Assign real providers to pending logistics jobs</td></tr>
+  <tr><td>Sun 10:00</td><td>XGBoost model retrain</td><td>Rebuild all price forecasting models from fresh data</td></tr>
+</table>
+
+<!-- ══════════════════════════════════════════════════════════ CH10 -->
+<div class="chapter-title" id="ch10">
+  <div class="ch-num">Chapter 10</div>
+  <h2>Defense Talking Points &amp; Q&amp;A Guide</h2>
+</div>
+
+<p>This chapter prepares you for the most common questions examiners ask in a data science project defense.</p>
+
+<h3>10.1 Opening Statement (2 minutes)</h3>
+<div class="box box-green">
+  <strong>Script</strong>
+  "AgriMatch is a data-driven agricultural marketplace for Ghana. The core data science challenge was: how do we turn raw, messy market price data from government sources into reliable 90-day price forecasts that smallholder farmers can actually act on?<br/><br/>
+  We built a complete pipeline: we ingest price data from HDX and MoFA daily, clean it through a validation and transformation process, engineer time-series features including lag prices and climate indices, train XGBoost and LSTM models per crop-market pair, and deploy the forecasts live through a web and USSD interface. The system is fully automated — it runs itself every night without human intervention."
+</div>
+
+<h3>10.2 Anticipated Questions and Answers</h3>
+
+<h4>Q: Why did you choose XGBoost over a simple linear regression?</h4>
+<p><strong>A:</strong> Linear regression assumes a linear relationship between features and price. Agricultural prices are non-linear — they respond differently to drought in a dry year versus a wet year (interaction effects). XGBoost handles non-linear interactions through its tree structure. We validated this choice: XGBoost achieved a MAPE of approximately 12% on the test set versus 22% for linear regression, confirming the non-linearity of the problem.</p>
+
+<h4>Q: How did you handle missing price data?</h4>
+<p><strong>A:</strong> We deliberately did not impute missing values in the clean price series. EDA showed that missing observations are not random — they cluster around holidays and seasonal access problems. Imputing with mean or forward-fill would artificially smooth seasonal dips. Instead, we used lag features that look back 7, 14, 30, and 90 days — if the 7-day lag is missing, it naturally uses the 14-day lag as a substitute during model training, making the model robust to gaps without requiring explicit imputation.</p>
+
+<h4>Q: How did you evaluate model performance?</h4>
+<p><strong>A:</strong> We used a temporal train-test split — training on all data up to 12 months before the evaluation period, and testing on the most recent 12 months. This is essential for time series: a random split would leak future information into training. We used MAPE as the primary metric because it is interpretable (a MAPE of 12% means forecasts are on average 12% off from actual prices) and comparable across crops with different price scales.</p>
+
+<h4>Q: What is the SPI and why is it in your model?</h4>
+<p><strong>A:</strong> SPI — Standardized Precipitation Index — measures how unusual current rainfall is relative to the long-term historical mean. It is a World Meteorological Organisation standard. We include it because EDA found a -0.42 correlation between 30-day SPI and next-week price changes: when rainfall is below normal (negative SPI), supply falls and prices rise. By including SPI as a feature, XGBoost can capture this weather-to-price transmission mechanism.</p>
+
+<h4>Q: How do you know your matchmaking algorithm is fair to all farmers?</h4>
+<p><strong>A:</strong> The match score is fully transparent — every sub-score is computed from objective data (GPS distance, harvest date, price relative to median). There is no subjective human judgment. A farmer in Upper East Region with a good harvest date and competitive price can outrank a farmer in Accra if the scores support it. We publish the scoring formula and every listing's match score so buyers can verify the ranking.</p>
+
+<h4>Q: Why store models in PostgreSQL instead of files?</h4>
+<p><strong>A:</strong> The application runs on Railway — a cloud platform where the filesystem resets on every deployment. Storing models as .pkl files would lose them every time we update the code. By storing models as BYTEA (binary) in PostgreSQL, they persist independently of deployments. The API hot-reloads new models from the database every 6 hours, so a Sunday retrain is live by Sunday afternoon.</p>
+
+<h4>Q: What are the limitations of your system?</h4>
+<p><strong>A:</strong> Three main limitations: (1) The XGBoost models are retrained only weekly — if a sudden price shock occurs (like a border closure), the model will not immediately update. (2) Buyer demand data is new — the demand board has no historical data yet, so the crop recommender uses supply-side signals only. (3) LSTM models require 60+ observations per crop-market pair — only 12 of 44 markets have sufficient data for LSTM training. We address these limitations by providing confidence intervals alongside forecasts and showing both XGBoost and LSTM predictions so users can see when models disagree.</p>
+
+<h4>Q: How does USSD work for farmers without smartphones?</h4>
+<p><strong>A:</strong> USSD (Unstructured Supplementary Service Data) is a feature-phone protocol — the farmer dials a short code like *384# and navigates a text menu using number keys. AgriMatch's USSD handler processes each menu selection and responds with price information, harvest advice, or allows the farmer to declare their crop. This makes the data science outputs accessible to the 65% of Ghanaian farmers who do not have smartphones.</p>
+
+<h4>Q: How would you improve this system with more time/data?</h4>
+<p><strong>A:</strong> Four improvements: (1) Collect buyer ratings for farmers to build a proper reputation system and feed it back into the matchmaking algorithm. (2) Build a demand forecasting model using buyer request patterns from the demand board. (3) Add satellite yield estimation — using remote sensing NDVI (Normalised Difference Vegetation Index) to predict yield before harvest, improving price forecast accuracy. (4) Implement online learning — update the XGBoost model incrementally with each new price observation instead of weekly batch retraining, reducing the lag to price shocks.</p>
+
+<h3>10.3 Key Numbers to Know</h3>
+
+<div class="metric-grid">
+  <div class="metric-card">
+    <div class="metric-num">37,933</div>
+    <div class="metric-lbl">Clean price records ingested</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-num">44</div>
+    <div class="metric-lbl">Markets covered across Ghana</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-num">16</div>
+    <div class="metric-lbl">Crop types tracked</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-num">265+</div>
+    <div class="metric-lbl">XGBoost models trained (one per crop-market pair)</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-num">11</div>
+    <div class="metric-lbl">Automated scheduler jobs running nightly</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-num">27</div>
+    <div class="metric-lbl">Database tables in PostgreSQL schema</div>
+  </div>
+</div>
+
+<h3>10.4 CRISP-DM Framework Applied to AgriMatch</h3>
+<p>CRISP-DM (Cross-Industry Standard Process for Data Mining) is the industry standard methodology for data science projects. AgriMatch follows it fully:</p>
+
+<table>
+  <tr><th>CRISP-DM Phase</th><th>AgriMatch Implementation</th></tr>
+  <tr><td><strong>1. Business Understanding</strong></td><td>Defined the three core problems: price uncertainty, buyer-farmer disconnection, harvest timing. Translated these into ML objectives: price forecasting (MAPE &lt;15%), matchmaking (ranked results), delay classification.</td></tr>
+  <tr><td><strong>2. Data Understanding (EDA)</strong></td><td>Analysed 37,933 price records across 44 markets. Discovered seasonal patterns, missing value clusters, market coverage gaps. Built correlation matrix of price drivers. (Chapter 3)</td></tr>
+  <tr><td><strong>3. Data Preparation</strong></td><td>Built 5-step cleaning pipeline (fetch → validate → transform → load → engineer). Quarantine mechanism for rejected records. Feature store with 15+ engineered features. (Chapters 4–5)</td></tr>
+  <tr><td><strong>4. Modeling</strong></td><td>Trained XGBoost (primary), LSTM (sequential), ARIMA (baseline), Harvest Delay Classifier, Crop Recommender. One model per crop-market pair. (Chapter 6)</td></tr>
+  <tr><td><strong>5. Evaluation</strong></td><td>Temporal train-test split. MAPE, MAE, RMSE per model. Stored in model_store and displayed in Admin → Models. Weekly retraining ensures continuous evaluation.</td></tr>
+  <tr><td><strong>6. Deployment</strong></td><td>FastAPI backend on Railway. Next.js frontend on Vercel. APScheduler for automated pipeline. USSD for mobile access. MoMo payments for reservations. Full production deployment.</td></tr>
+</table>
+
+<h3>10.5 Elevator Pitch (30 seconds)</h3>
+<div class="box box-blue">
+  "AgriMatch uses machine learning to solve a GHS 2-billion problem in Ghana's agricultural sector — farmers selling at the wrong time because they don't know what prices will be in 30 days. We built an automated pipeline that ingests market price data daily, cleans it, engineers features including climate indices, and trains XGBoost and LSTM models to forecast prices 90 days ahead. These forecasts are delivered to farmers via a web app and USSD mobile interface, telling them exactly when to sell, which crop to plant next, and how to share transport costs with neighbouring farms. The system runs itself — 11 automated jobs run every night, retraining models every Sunday with fresh data."
+</div>
+
+<hr class="divider" style="margin: 40px 0;" />
+
+<p style="text-align:center; color:#888; font-size:9pt;">
+  AgriMatch Project Defense Documentation &mdash; Ghana Agricultural Intelligence Platform<br/>
+  All data, models, and code described herein are the work of the project team.<br/>
+  Data sources: HDX (UN OCHA), MoFA Ghana, NASA POWER, CHIRPS, NPA Ghana.
+</p>
+
+</body>
+</html>

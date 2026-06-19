@@ -1,0 +1,1 @@
+["lag_7d", "lag_14d", "lag_30d", "lag_90d", "rolling_mean_30d", "rolling_std_30d", "rolling_mean_90d", "rolling_min_30d", "rolling_max_30d", "price_momentum_7d", "price_momentum_30d", "sin_week", "cos_week", "sin_month", "cos_month", "spi_30day", "et0_mm", "csi_value", "fuel_price_diesel", "prev_price"]

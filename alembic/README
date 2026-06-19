@@ -1,0 +1,16 @@
+AgriMatch database migrations.
+
+Usage:
+  # Generate a new migration from model changes
+  alembic revision --autogenerate -m "describe your change"
+
+  # Apply all pending migrations
+  alembic upgrade head
+
+  # Roll back one step
+  alembic downgrade -1
+
+  # Show current revision
+  alembic current
+
+DATABASE_URL must be set in the environment before running any alembic command.

@@ -1,0 +1,399 @@
+========================================================================
+AgriMatch - Data Quality Report
+Generated: 2026-05-25 15:50:04 UTC
+========================================================================
+========================================================================
+  1. COVERAGE SUMMARY
+========================================================================
+
+  Total rows in clean_prices: 37,933
+
+  By source:
+  +--------+--------+
+  | Source |   Rows |
+  +--------+--------+
+  | hdx    | 37,933 |
+  +--------+--------+
+
+  By crop:
+  +---------------+-------+
+  | Crop          |  Rows |
+  +---------------+-------+
+  | rice          | 6,008 |
+  | maize         | 4,780 |
+  | yam           | 4,229 |
+  | cassava       | 4,216 |
+  | plantain      | 3,165 |
+  | millet        | 2,332 |
+  | sorghum       | 2,286 |
+  | tomato        | 2,126 |
+  | pepper        | 1,842 |
+  | chicken       | 1,440 |
+  | garden_egg    | 1,068 |
+  | soybean       | 1,018 |
+  | onion         | 1,014 |
+  | cowpea        |   973 |
+  | fish_mackerel |   956 |
+  | eggs          |   480 |
+  +---------------+-------+
+
+
+========================================================================
+  2. MARKET COVERAGE
+========================================================================
+  +------------------+--------+-------+------------+------------+
+  | Market           | Source |  Rows | Earliest   | Latest     |
+  +------------------+--------+-------+------------+------------+
+  | Techiman         | hdx    | 3,165 | 2006-01-15 | 2023-07-15 |
+  | Kumasi           | hdx    | 3,152 | 2006-01-15 | 2023-07-15 |
+  | Accra            | hdx    | 3,146 | 2006-01-15 | 2023-07-15 |
+  | Tamale           | hdx    | 2,854 | 2006-01-15 | 2023-07-15 |
+  | Sekondi-Takoradi | hdx    | 2,423 | 2008-01-15 | 2023-07-15 |
+  | Bolgatanga       | hdx    | 2,406 | 2006-01-15 | 2023-07-15 |
+  | Sunyani          | hdx    | 2,369 | 2008-01-15 | 2023-07-15 |
+  | Cape Coast       | hdx    | 2,014 | 2008-01-15 | 2023-07-15 |
+  | Wa               | hdx    | 1,957 | 2006-01-15 | 2023-07-15 |
+  | Tema             | hdx    | 1,941 | 2008-01-15 | 2023-07-15 |
+  | Koforidua        | hdx    | 1,782 | 2008-01-15 | 2023-07-15 |
+  | Kintampo         | hdx    | 1,656 | 2014-10-15 | 2023-07-15 |
+  | Mankessim        | hdx    | 1,509 | 2008-01-15 | 2023-07-15 |
+  | Obuasi           | hdx    | 1,487 | 2008-01-15 | 2023-07-15 |
+  | Ejura            | hdx    | 1,399 | 2009-02-15 | 2023-07-15 |
+  | Ho               | hdx    | 1,396 | 2008-01-15 | 2023-07-15 |
+  | Hohoe            | hdx    | 1,151 | 2019-09-15 | 2023-07-15 |
+  | Garu             | hdx    |   872 | 2014-10-15 | 2023-07-15 |
+  | Yendi            | hdx    |   733 | 2014-10-15 | 2023-07-15 |
+  | Nkwanta          | hdx    |   432 | 2014-10-15 | 2023-07-15 |
+  | Bawku            | hdx    |     4 | 2014-10-15 | 2014-10-15 |
+  | Banda            | hdx    |     4 | 2014-10-15 | 2014-10-15 |
+  | Badu             | hdx    |     4 | 2014-10-15 | 2014-10-15 |
+  | Kete Krachi      | hdx    |     4 | 2014-10-15 | 2014-10-15 |
+  | Navrongo         | hdx    |     4 | 2014-10-15 | 2014-10-15 |
+  | Kpandai          | hdx    |     4 | 2014-10-15 | 2014-10-15 |
+  | Zabzugu          | hdx    |     4 | 2014-10-15 | 2014-10-15 |
+  | Funbisi          | hdx    |     4 | 2014-10-15 | 2014-10-15 |
+  | Dambai           | hdx    |     4 | 2014-10-15 | 2014-10-15 |
+  | Kajeji           | hdx    |     4 | 2014-10-15 | 2014-10-15 |
+  | Yeji             | hdx    |     4 | 2014-10-15 | 2014-10-15 |
+  | Nadowli          | hdx    |     4 | 2014-10-15 | 2014-10-15 |
+  | Kpassa           | hdx    |     4 | 2014-10-15 | 2014-10-15 |
+  | Kadjebi          | hdx    |     4 | 2014-10-15 | 2014-10-15 |
+  | Jirapa           | hdx    |     4 | 2014-10-15 | 2014-10-15 |
+  | Bimbilla         | hdx    |     4 | 2014-10-15 | 2014-10-15 |
+  | Gushegu          | hdx    |     4 | 2014-10-15 | 2014-10-15 |
+  | Saboba           | hdx    |     4 | 2014-10-15 | 2014-10-15 |
+  | Lawra            | hdx    |     3 | 2014-10-15 | 2014-10-15 |
+  | Nalerigu         | hdx    |     3 | 2014-10-15 | 2014-10-15 |
+  | Bunkprugu        | hdx    |     3 | 2014-10-15 | 2014-10-15 |
+  | Wichau           | hdx    |     3 | 2014-10-15 | 2014-10-15 |
+  | Tumu             | hdx    |     3 | 2014-10-15 | 2014-10-15 |
+  | Bongo            | hdx    |     2 | 2014-10-15 | 2014-10-15 |
+  +------------------+--------+-------+------------+------------+
+
+
+========================================================================
+  3. QUARANTINE SUMMARY
+========================================================================
+
+  Total quarantined rows: 0
+
+  No quarantined rows - all ingested data passed validation.
+
+
+========================================================================
+  4. DATA GAPS  (>3 consecutive months missing)
+========================================================================
+  +------------------+---------------+----------+---------+----------------+
+  | Market           | Crop          | Gap from | Gap to  | Missing months |
+  +------------------+---------------+----------+---------+----------------+
+  | Accra            | millet        | 2014-06  | 2015-01 |              6 |
+  | Accra            | sorghum       | 2014-06  | 2015-01 |              6 |
+  | Bolgatanga       | cassava       | 2010-02  | 2010-07 |              4 |
+  | Bolgatanga       | cassava       | 2011-10  | 2014-01 |             26 |
+  | Bolgatanga       | cassava       | 2014-01  | 2016-04 |             26 |
+  | Bolgatanga       | eggs          | 2020-05  | 2021-02 |              8 |
+  | Bolgatanga       | fish_mackerel | 2020-05  | 2020-12 |              6 |
+  | Bolgatanga       | millet        | 2014-06  | 2015-01 |              6 |
+  | Bolgatanga       | plantain      | 2010-02  | 2011-02 |             11 |
+  | Bolgatanga       | sorghum       | 2014-06  | 2015-01 |              6 |
+  | Bolgatanga       | yam           | 2017-10  | 2018-07 |              8 |
+  | Bolgatanga       | yam           | 2018-11  | 2019-08 |              8 |
+  | Cape Coast       | cassava       | 2019-03  | 2019-08 |              4 |
+  | Cape Coast       | cowpea        | 2021-01  | 2021-06 |              4 |
+  | Cape Coast       | fish_mackerel | 2020-03  | 2020-10 |              6 |
+  | Cape Coast       | maize         | 2018-01  | 2019-01 |             11 |
+  | Cape Coast       | rice          | 2018-01  | 2018-07 |              5 |
+  | Cape Coast       | soybean       | 2022-03  | 2022-08 |              4 |
+  | Cape Coast       | yam           | 2017-08  | 2019-08 |             23 |
+  | Ejura            | cassava       | 2017-09  | 2019-08 |             22 |
+  | Ejura            | cassava       | 2021-04  | 2021-11 |              6 |
+  | Ejura            | cassava       | 2022-01  | 2023-01 |             11 |
+  | Ejura            | chicken       | 2021-04  | 2021-11 |              6 |
+  | Ejura            | chicken       | 2022-01  | 2023-01 |             11 |
+  | Ejura            | cowpea        | 2021-04  | 2021-11 |              6 |
+  | Ejura            | cowpea        | 2022-01  | 2023-01 |             11 |
+  | Ejura            | eggs          | 2020-06  | 2020-11 |              4 |
+  | Ejura            | eggs          | 2021-04  | 2021-11 |              6 |
+  | Ejura            | eggs          | 2022-01  | 2023-01 |             11 |
+  | Ejura            | fish_mackerel | 2020-05  | 2020-11 |              5 |
+  | Ejura            | fish_mackerel | 2021-04  | 2021-11 |              6 |
+  | Ejura            | fish_mackerel | 2022-01  | 2023-01 |             11 |
+  | Ejura            | garden_egg    | 2021-04  | 2021-11 |              6 |
+  | Ejura            | garden_egg    | 2022-01  | 2023-01 |             11 |
+  | Ejura            | maize         | 2021-04  | 2021-11 |              6 |
+  | Ejura            | maize         | 2022-01  | 2023-01 |             11 |
+  | Ejura            | millet        | 2021-04  | 2021-11 |              6 |
+  | Ejura            | millet        | 2022-01  | 2023-01 |             11 |
+  | Ejura            | onion         | 2020-07  | 2021-02 |              6 |
+  | Ejura            | onion         | 2021-04  | 2021-11 |              6 |
+  | Ejura            | onion         | 2022-01  | 2023-01 |             11 |
+  | Ejura            | pepper        | 2021-04  | 2021-11 |              6 |
+  | Ejura            | pepper        | 2022-01  | 2023-01 |             11 |
+  | Ejura            | plantain      | 2021-04  | 2021-11 |              6 |
+  | Ejura            | plantain      | 2022-01  | 2023-01 |             11 |
+  | Ejura            | rice          | 2021-04  | 2021-11 |              6 |
+  | Ejura            | rice          | 2022-01  | 2023-01 |             11 |
+  | Ejura            | sorghum       | 2021-04  | 2021-11 |              6 |
+  | Ejura            | sorghum       | 2022-01  | 2023-01 |             11 |
+  | Ejura            | soybean       | 2021-04  | 2021-11 |              6 |
+  | Ejura            | soybean       | 2022-01  | 2023-01 |             11 |
+  | Ejura            | tomato        | 2021-02  | 2021-11 |              8 |
+  | Ejura            | tomato        | 2022-01  | 2023-01 |             11 |
+  | Ejura            | yam           | 2017-11  | 2018-08 |              8 |
+  | Ejura            | yam           | 2021-04  | 2021-11 |              6 |
+  | Ejura            | yam           | 2022-01  | 2023-01 |             11 |
+  | Garu             | cassava       | 2021-03  | 2021-08 |              4 |
+  | Garu             | chicken       | 2019-10  | 2020-04 |              5 |
+  | Garu             | chicken       | 2020-08  | 2021-02 |              5 |
+  | Garu             | chicken       | 2021-03  | 2021-08 |              4 |
+  | Garu             | cowpea        | 2019-09  | 2020-02 |              4 |
+  | Garu             | cowpea        | 2021-03  | 2021-08 |              4 |
+  | Garu             | eggs          | 2020-08  | 2021-02 |              5 |
+  | Garu             | eggs          | 2021-03  | 2021-08 |              4 |
+  | Garu             | eggs          | 2022-08  | 2023-02 |              5 |
+  | Garu             | fish_mackerel | 2019-10  | 2020-04 |              5 |
+  | Garu             | fish_mackerel | 2021-03  | 2021-08 |              4 |
+  | Garu             | garden_egg    | 2021-03  | 2021-08 |              4 |
+  | Garu             | maize         | 2014-10  | 2018-02 |             39 |
+  | Garu             | maize         | 2018-02  | 2019-08 |             17 |
+  | Garu             | maize         | 2021-03  | 2021-08 |              4 |
+  | Garu             | millet        | 2021-03  | 2021-08 |              4 |
+  | Garu             | onion         | 2019-09  | 2020-02 |              4 |
+  | Garu             | onion         | 2020-11  | 2021-08 |              8 |
+  | Garu             | pepper        | 2019-09  | 2020-02 |              4 |
+  | Garu             | pepper        | 2021-03  | 2021-08 |              4 |
+  | Garu             | plantain      | 2021-03  | 2021-08 |              4 |
+  | Garu             | rice          | 2014-10  | 2018-02 |             39 |
+  | Garu             | rice          | 2018-02  | 2019-08 |             17 |
+  | Garu             | rice          | 2021-03  | 2021-08 |              4 |
+  | Garu             | sorghum       | 2021-03  | 2021-08 |              4 |
+  | Garu             | soybean       | 2020-08  | 2021-02 |              5 |
+  | Garu             | soybean       | 2021-03  | 2021-08 |              4 |
+  | Garu             | tomato        | 2021-03  | 2021-08 |              4 |
+  | Garu             | yam           | 2021-03  | 2021-08 |              4 |
+  | Ho               | cassava       | 2015-07  | 2016-01 |              5 |
+  | Ho               | cassava       | 2016-06  | 2018-01 |             18 |
+  | Ho               | cassava       | 2018-02  | 2019-08 |             17 |
+  | Ho               | chicken       | 2020-07  | 2021-01 |              5 |
+  | Ho               | fish_mackerel | 2020-05  | 2020-10 |              4 |
+  | Ho               | maize         | 2015-07  | 2016-01 |              5 |
+  | Ho               | maize         | 2016-06  | 2018-02 |             19 |
+  | Ho               | maize         | 2018-02  | 2019-08 |             17 |
+  | Ho               | plantain      | 2015-07  | 2016-01 |              5 |
+  | Ho               | plantain      | 2016-06  | 2018-01 |             18 |
+  | Ho               | plantain      | 2018-02  | 2019-08 |             17 |
+  | Ho               | rice          | 2008-06  | 2008-11 |              4 |
+  | Ho               | rice          | 2015-07  | 2016-01 |              5 |
+  | Ho               | rice          | 2016-06  | 2018-01 |             18 |
+  | Ho               | rice          | 2018-02  | 2019-08 |             17 |
+  | Ho               | yam           | 2015-07  | 2016-01 |              5 |
+  | Ho               | yam           | 2016-06  | 2018-01 |             18 |
+  | Ho               | yam           | 2018-01  | 2019-08 |             18 |
+  | Hohoe            | cassava       | 2021-02  | 2021-07 |              4 |
+  | Hohoe            | cassava       | 2021-07  | 2022-02 |              6 |
+  | Hohoe            | chicken       | 2021-02  | 2021-07 |              4 |
+  | Hohoe            | chicken       | 2021-07  | 2022-02 |              6 |
+  | Hohoe            | cowpea        | 2021-02  | 2021-07 |              4 |
+  | Hohoe            | cowpea        | 2021-07  | 2022-02 |              6 |
+  | Hohoe            | eggs          | 2021-02  | 2021-07 |              4 |
+  | Hohoe            | eggs          | 2021-07  | 2022-02 |              6 |
+  | Hohoe            | fish_mackerel | 2020-05  | 2021-01 |              7 |
+  | Hohoe            | fish_mackerel | 2021-02  | 2022-02 |             11 |
+  | Hohoe            | garden_egg    | 2021-01  | 2021-07 |              5 |
+  | Hohoe            | garden_egg    | 2021-07  | 2022-02 |              6 |
+  | Hohoe            | maize         | 2021-02  | 2021-07 |              4 |
+  | Hohoe            | maize         | 2021-07  | 2022-02 |              6 |
+  | Hohoe            | millet        | 2021-02  | 2021-07 |              4 |
+  | Hohoe            | millet        | 2021-07  | 2022-02 |              6 |
+  | Hohoe            | onion         | 2020-06  | 2021-01 |              6 |
+  | Hohoe            | onion         | 2021-01  | 2021-07 |              5 |
+  | Hohoe            | onion         | 2021-07  | 2022-02 |              6 |
+  | Hohoe            | pepper        | 2021-02  | 2021-07 |              4 |
+  | Hohoe            | pepper        | 2021-07  | 2022-02 |              6 |
+  | Hohoe            | plantain      | 2021-02  | 2021-07 |              4 |
+  | Hohoe            | plantain      | 2021-07  | 2022-02 |              6 |
+  | Hohoe            | rice          | 2021-02  | 2021-07 |              4 |
+  | Hohoe            | rice          | 2021-07  | 2022-02 |              6 |
+  | Hohoe            | sorghum       | 2021-02  | 2021-07 |              4 |
+  | Hohoe            | sorghum       | 2021-07  | 2022-02 |              6 |
+  | Hohoe            | soybean       | 2020-09  | 2021-07 |              9 |
+  | Hohoe            | soybean       | 2021-07  | 2022-02 |              6 |
+  | Hohoe            | tomato        | 2021-02  | 2021-07 |              4 |
+  | Hohoe            | tomato        | 2021-07  | 2022-02 |              6 |
+  | Hohoe            | yam           | 2021-02  | 2021-07 |              4 |
+  | Hohoe            | yam           | 2021-07  | 2022-02 |              6 |
+  | Kintampo         | cassava       | 2014-10  | 2018-02 |             39 |
+  | Kintampo         | cowpea        | 2021-06  | 2021-12 |              5 |
+  | Kintampo         | maize         | 2014-10  | 2018-02 |             39 |
+  | Kintampo         | pepper        | 2020-11  | 2021-04 |              4 |
+  | Kintampo         | rice          | 2014-10  | 2018-02 |             39 |
+  | Koforidua        | cassava       | 2022-05  | 2023-02 |              8 |
+  | Koforidua        | chicken       | 2022-05  | 2023-02 |              8 |
+  | Koforidua        | cowpea        | 2022-05  | 2023-02 |              8 |
+  | Koforidua        | eggs          | 2020-05  | 2020-10 |              4 |
+  | Koforidua        | eggs          | 2022-05  | 2023-02 |              8 |
+  | Koforidua        | fish_mackerel | 2020-05  | 2020-10 |              4 |
+  | Koforidua        | fish_mackerel | 2022-05  | 2023-02 |              8 |
+  | Koforidua        | garden_egg    | 2022-05  | 2023-02 |              8 |
+  | Koforidua        | maize         | 2022-05  | 2023-02 |              8 |
+  | Koforidua        | millet        | 2022-05  | 2023-02 |              8 |
+  | Koforidua        | onion         | 2022-05  | 2023-02 |              8 |
+  | Koforidua        | pepper        | 2022-01  | 2023-02 |             12 |
+  | Koforidua        | plantain      | 2022-05  | 2023-02 |              8 |
+  | Koforidua        | rice          | 2012-06  | 2013-02 |              7 |
+  | Koforidua        | rice          | 2022-05  | 2023-02 |              8 |
+  | Koforidua        | sorghum       | 2022-05  | 2023-02 |              8 |
+  | Koforidua        | soybean       | 2022-05  | 2023-02 |              8 |
+  | Koforidua        | tomato        | 2022-05  | 2023-02 |              8 |
+  | Koforidua        | yam           | 2014-05  | 2015-02 |              8 |
+  | Koforidua        | yam           | 2015-07  | 2016-01 |              5 |
+  | Koforidua        | yam           | 2016-07  | 2017-03 |              7 |
+  | Koforidua        | yam           | 2017-03  | 2017-09 |              5 |
+  | Koforidua        | yam           | 2018-09  | 2019-02 |              4 |
+  | Koforidua        | yam           | 2022-05  | 2023-02 |              8 |
+  | Kumasi           | fish_mackerel | 2020-05  | 2020-10 |              4 |
+  | Kumasi           | millet        | 2014-06  | 2015-01 |              6 |
+  | Kumasi           | plantain      | 2018-04  | 2018-10 |              5 |
+  | Kumasi           | plantain      | 2018-10  | 2019-03 |              4 |
+  | Kumasi           | sorghum       | 2014-06  | 2015-01 |              6 |
+  | Mankessim        | cassava       | 2017-09  | 2019-08 |             22 |
+  | Mankessim        | chicken       | 2020-07  | 2021-01 |              5 |
+  | Mankessim        | fish_mackerel | 2020-05  | 2020-10 |              4 |
+  | Mankessim        | maize         | 2017-09  | 2019-08 |             22 |
+  | Mankessim        | plantain      | 2017-09  | 2019-08 |             22 |
+  | Mankessim        | rice          | 2017-09  | 2019-08 |             22 |
+  | Mankessim        | yam           | 2017-09  | 2019-08 |             22 |
+  | Nkwanta          | cassava       | 2014-10  | 2022-08 |             93 |
+  | Nkwanta          | maize         | 2014-10  | 2022-08 |             93 |
+  | Nkwanta          | rice          | 2014-10  | 2022-08 |             93 |
+  | Obuasi           | cassava       | 2017-07  | 2019-08 |             24 |
+  | Obuasi           | chicken       | 2020-03  | 2021-01 |              9 |
+  | Obuasi           | cowpea        | 2020-05  | 2020-11 |              5 |
+  | Obuasi           | fish_mackerel | 2020-03  | 2020-11 |              7 |
+  | Obuasi           | maize         | 2017-07  | 2019-08 |             24 |
+  | Obuasi           | plantain      | 2017-05  | 2019-08 |             26 |
+  | Obuasi           | rice          | 2017-07  | 2019-08 |             24 |
+  | Obuasi           | soybean       | 2020-03  | 2020-11 |              7 |
+  | Obuasi           | soybean       | 2021-01  | 2021-06 |              4 |
+  | Obuasi           | soybean       | 2021-06  | 2022-10 |             15 |
+  | Obuasi           | soybean       | 2022-10  | 2023-05 |              6 |
+  | Obuasi           | yam           | 2017-07  | 2019-08 |             24 |
+  | Sekondi-Takoradi | cassava       | 2017-01  | 2017-06 |              4 |
+  | Sekondi-Takoradi | cassava       | 2017-11  | 2018-10 |             10 |
+  | Sekondi-Takoradi | maize         | 2017-01  | 2017-06 |              4 |
+  | Sekondi-Takoradi | maize         | 2017-11  | 2018-10 |             10 |
+  | Sekondi-Takoradi | maize         | 2018-10  | 2019-04 |              5 |
+  | Sekondi-Takoradi | plantain      | 2017-01  | 2017-06 |              4 |
+  | Sekondi-Takoradi | plantain      | 2017-11  | 2018-10 |             10 |
+  | Sekondi-Takoradi | rice          | 2017-01  | 2017-06 |              4 |
+  | Sekondi-Takoradi | rice          | 2017-11  | 2018-10 |             10 |
+  | Sekondi-Takoradi | rice          | 2018-10  | 2019-04 |              5 |
+  | Sekondi-Takoradi | yam           | 2017-01  | 2017-06 |              4 |
+  | Sekondi-Takoradi | yam           | 2017-11  | 2018-10 |             10 |
+  | Sekondi-Takoradi | yam           | 2018-10  | 2019-04 |              5 |
+  | Sunyani          | cassava       | 2018-05  | 2019-01 |              7 |
+  | Tamale           | cassava       | 2017-12  | 2019-08 |             19 |
+  | Tamale           | eggs          | 2020-03  | 2021-02 |             10 |
+  | Tamale           | fish_mackerel | 2020-05  | 2020-10 |              4 |
+  | Tamale           | maize         | 2017-12  | 2019-08 |             19 |
+  | Tamale           | millet        | 2014-06  | 2015-01 |              6 |
+  | Tamale           | millet        | 2017-12  | 2019-08 |             19 |
+  | Tamale           | plantain      | 2017-05  | 2017-10 |              4 |
+  | Tamale           | plantain      | 2017-10  | 2019-08 |             21 |
+  | Tamale           | rice          | 2017-12  | 2019-08 |             19 |
+  | Tamale           | sorghum       | 2014-06  | 2015-01 |              6 |
+  | Tamale           | sorghum       | 2017-12  | 2019-08 |             19 |
+  | Tamale           | soybean       | 2021-12  | 2022-10 |              9 |
+  | Tamale           | yam           | 2017-11  | 2019-08 |             20 |
+  | Techiman         | millet        | 2014-06  | 2015-01 |              6 |
+  | Techiman         | sorghum       | 2014-06  | 2015-01 |              6 |
+  | Tema             | cassava       | 2018-02  | 2018-07 |              4 |
+  | Tema             | eggs          | 2019-12  | 2020-11 |             10 |
+  | Tema             | fish_mackerel | 2020-05  | 2020-10 |              4 |
+  | Tema             | maize         | 2018-01  | 2018-07 |              5 |
+  | Tema             | plantain      | 2015-04  | 2015-10 |              5 |
+  | Tema             | plantain      | 2017-05  | 2017-11 |              5 |
+  | Tema             | plantain      | 2018-01  | 2018-07 |              5 |
+  | Tema             | rice          | 2008-06  | 2009-06 |             11 |
+  | Tema             | rice          | 2012-09  | 2013-07 |              9 |
+  | Tema             | rice          | 2013-07  | 2014-04 |              8 |
+  | Tema             | rice          | 2017-10  | 2018-07 |              8 |
+  | Tema             | rice          | 2021-01  | 2021-06 |              4 |
+  | Tema             | rice          | 2021-06  | 2022-02 |              7 |
+  | Tema             | rice          | 2022-04  | 2023-02 |              9 |
+  | Tema             | yam           | 2014-05  | 2015-01 |              7 |
+  | Tema             | yam           | 2015-01  | 2018-10 |             44 |
+  | Wa               | cassava       | 2017-11  | 2019-08 |             20 |
+  | Wa               | chicken       | 2020-08  | 2021-02 |              5 |
+  | Wa               | cowpea        | 2021-03  | 2021-08 |              4 |
+  | Wa               | eggs          | 2020-09  | 2022-09 |             23 |
+  | Wa               | fish_mackerel | 2020-05  | 2020-12 |              6 |
+  | Wa               | garden_egg    | 2020-09  | 2021-04 |              6 |
+  | Wa               | garden_egg    | 2021-08  | 2022-01 |              4 |
+  | Wa               | maize         | 2018-02  | 2019-08 |             17 |
+  | Wa               | millet        | 2014-06  | 2015-01 |              6 |
+  | Wa               | millet        | 2018-02  | 2019-08 |             17 |
+  | Wa               | onion         | 2020-09  | 2021-03 |              5 |
+  | Wa               | onion         | 2021-04  | 2021-10 |              5 |
+  | Wa               | pepper        | 2021-06  | 2022-09 |             14 |
+  | Wa               | plantain      | 2016-04  | 2016-11 |              6 |
+  | Wa               | plantain      | 2017-02  | 2019-08 |             29 |
+  | Wa               | rice          | 2017-12  | 2019-08 |             19 |
+  | Wa               | sorghum       | 2014-06  | 2015-01 |              6 |
+  | Wa               | sorghum       | 2018-02  | 2019-08 |             17 |
+  | Wa               | soybean       | 2020-09  | 2021-02 |              4 |
+  | Wa               | yam           | 2018-02  | 2019-08 |             17 |
+  | Yendi            | cassava       | 2014-10  | 2019-08 |             57 |
+  | Yendi            | chicken       | 2020-09  | 2021-02 |              4 |
+  | Yendi            | cowpea        | 2020-09  | 2021-09 |             11 |
+  | Yendi            | cowpea        | 2021-11  | 2022-08 |              8 |
+  | Yendi            | eggs          | 2020-09  | 2021-02 |              4 |
+  | Yendi            | fish_mackerel | 2021-01  | 2022-02 |             12 |
+  | Yendi            | fish_mackerel | 2022-02  | 2022-10 |              7 |
+  | Yendi            | maize         | 2014-10  | 2017-12 |             37 |
+  | Yendi            | maize         | 2018-02  | 2018-10 |              7 |
+  | Yendi            | maize         | 2018-10  | 2019-07 |              8 |
+  | Yendi            | onion         | 2020-09  | 2021-02 |              4 |
+  | Yendi            | plantain      | 2021-01  | 2022-10 |             20 |
+  | Yendi            | rice          | 2014-10  | 2017-12 |             37 |
+  | Yendi            | rice          | 2018-02  | 2018-10 |              7 |
+  | Yendi            | rice          | 2018-10  | 2019-07 |              8 |
+  | Yendi            | soybean       | 2020-09  | 2021-02 |              4 |
+  | Yendi            | tomato        | 2021-01  | 2021-06 |              4 |
+  +------------------+---------------+----------+---------+----------------+
+
+
+========================================================================
+  5. RECENT RUNS  (last 10 ingestion_log entries)
+========================================================================
+  +----+--------+------------------+---------+--------+-------------+---------+---------------------------------------------+
+  | ID | Source | Run at           | Fetched |  Clean | Quarantined | Status  | Error                                       |
+  +----+--------+------------------+---------+--------+-------------+---------+---------------------------------------------+
+  |  3 | hdx    | 2026-05-25 15:31 |  39,038 | 31,435 |       7,403 | success |                                             |
+  |  2 | hdx    | 2026-05-25 13:01 |     200 |    200 |           0 | success |                                             |
+  |  1 | hdx    | 2026-05-25 12:59 |     200 |      0 |           0 | failed  | (psycopg2.errors.ForeignKeyViolation) in... |
+  +----+--------+------------------+---------+--------+-------------+---------+---------------------------------------------+
+
+========================================================================
+  End of report
+========================================================================
